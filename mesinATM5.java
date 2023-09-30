@@ -13,7 +13,7 @@ public class mesinATM5 {
         jmlTF = input.nextInt();
         System.out.println("Masukkan nomor rekening yang dituju");
         NoRek = input.nextInt();
-        System.out.println("Apakah anda yakin? (Tekan 1 = yakin dan klik 2 = tidak yakin)");
+        System.out.println("Apakah anda yakin? (Tekan 1 = yakin dan Tekan 2 = tidak yakin)");
         konfirmasi = input.nextInt();
         if (konfirmasi == 1) {
             System.out.println("Yakin");
