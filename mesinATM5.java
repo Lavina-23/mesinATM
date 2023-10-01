@@ -1,5 +1,6 @@
 import java.util.Scanner;
 
+import javax.swing.text.Style;
 /**
  * mesinATM5
  */
@@ -8,8 +9,8 @@ public class mesinATM5 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        int pin, menu, jmlSaldo, jmlTarik, jmlTF, noRek;
-        double bunga = 0.2;
+        int pin, menu, jmlSaldo, jmlTarik, jmlTF, noRek, konfirmasi, lama_menabung;
+        double bunga = 0.2, jml_tabungan_akhir;
 
         System.out.print("Masukkan PIN anda : ");
         pin = sc.nextInt();
@@ -41,13 +42,17 @@ public class mesinATM5 {
                     }
                     break;
                 case 2:
-                    // Transfer kerjakan disini
+                    // Transfer
                     break;
                 case 3:
-                    // Cek Saldo kerjakan disini
-                    break;
-                default:
-                    break;
+                System.out.println("masukkan jumlah tabungan awal anda");                
+                jmlSaldo = sc.nextInt();
+                System.out.println("masukkan lama menabung anda");
+                lama_menabung= sc.nextInt();
+                bunga= lama_menabung*bunga*jmlSaldo;
+                jml_tabungan_akhir=bunga+jmlSaldo;
+                System.out.println("Bunga adalah " +bunga);
+                System.out.println("Jumlah tabungan akhir anda adalah " +jml_tabungan_akhir);
             }
         } else {
             System.out.println("PIN anda salah !");
