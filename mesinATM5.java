@@ -60,8 +60,6 @@ public class mesinATM5 {
                     break;
                 case 3:
                     // Cek Saldo kerjakan disini
-                    System.out.println("masukkan jumlah tabungan awal anda");                
-                    jmlSaldo = sc.nextInt();
                     System.out.println("masukkan lama menabung anda");
                     lama_menabung= sc.nextInt();
 
