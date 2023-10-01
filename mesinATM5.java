@@ -23,6 +23,22 @@ public class mesinATM5 {
             switch (menu) {
                 case 1:
                     // Tarik Tunai dikerjakan disini
+                    Scanner input = new Scanner(System.in);
+                    int sisaSaldo, konfirmasi;
+                    System.out.println("Masukkan jumlah saldo anda ");
+                    jmlSaldo = input.nextInt();
+                    System.out.println("Masukkan jumlah uang yang akan ditarik ");
+                    jmlTarik = input.nextInt();
+                    System.out.println("Apakah anda yakin ? (Tekan 1 jika Ya dan Tekan 2 jika tidak)");
+                    konfirmasi = input.nextInt();
+                    sisaSaldo = jmlSaldo - jmlTarik;
+
+                    if (konfirmasi == 1) {
+                        System.out.println("Sisa saldo : " + sisaSaldo);
+                    }
+                    else {
+                        System.out.println("Sampai jumpa kembali !");
+                    }
                     break;
                 case 2:
                     // Transfer kerjakan disini
