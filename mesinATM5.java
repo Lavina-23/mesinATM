@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-import javax.swing.text.Style;
 /**
  * mesinATM5
  */
@@ -10,7 +9,7 @@ public class mesinATM5 {
         Scanner sc = new Scanner(System.in);
 
 
-        int pin, menu, jmlSaldo, jmlTarik, jmlTF, noRek, konfirmasi, lama_menabung;
+        int pin, menu, jmlSaldo, jmlTarik, jmlTF, noRek, lama_menabung, sisaSaldo;
         double bunga = 0.2, jml_tabungan_akhir;
 
 
@@ -29,31 +28,26 @@ public class mesinATM5 {
             switch (menu) {
                 case 1:
                 // Tarik Tunai dikerjakan disini
-                    Scanner input = new Scanner(System.in);
-                    int sisaSaldo, konfirmasi;
-                    System.out.println("Masukkan jumlah saldo anda ");
-                    jmlSaldo = input.nextInt();
                     System.out.println("Masukkan jumlah uang yang akan ditarik ");
-                    jmlTarik = input.nextInt();
-                    System.out.println("Apakah anda yakin ? (Tekan 1 jika Ya dan Tekan 2 jika tidak)");
-                    konfirmasi = input.nextInt();
+                    jmlTarik = sc.nextInt();
+
                     sisaSaldo = jmlSaldo - jmlTarik;
 
-                    if (konfirmasi == 1) {
+                    if (jmlTarik <= jmlSaldo) {
                         System.out.println("Sisa saldo : " + sisaSaldo);
                     }
                     else {
-                        System.out.println("Sampai jumpa kembali !");
+                        System.out.println("Jumlah uang yang anda tarik melebihi jumlah saldo anda !");
                     }
                     break;
                 case 2:
                 // Transfer kerjakan disini
-                System.out.print("\nMasukkan nomor rekening tujuan : ");
-                noRek = sc.nextInt();
-                System.out.print("Masukkan nominal yang ingin di transfer : ");
-                jmlTF = sc.nextInt();
+                    System.out.print("\nMasukkan nomor rekening tujuan : ");
+                    noRek = sc.nextInt();
+                    System.out.print("Masukkan nominal yang ingin di transfer : ");
+                    jmlTF = sc.nextInt();
 
-                if (jmlTF <= jmlSaldo) {
+                    if (jmlTF <= jmlSaldo) {
                     sisaSaldo = jmlSaldo - jmlTF;
 
                     System.out.println("\n******** TRANSFER BERHASIL ********");
@@ -70,8 +64,10 @@ public class mesinATM5 {
                     jmlSaldo = sc.nextInt();
                     System.out.println("masukkan lama menabung anda");
                     lama_menabung= sc.nextInt();
+
                     bunga= lama_menabung*bunga*jmlSaldo;
                     jml_tabungan_akhir=bunga+jmlSaldo;
+
                     System.out.println("Bunga adalah " +bunga);
                     System.out.println("Jumlah tabungan akhir anda adalah " +jml_tabungan_akhir);
                     break;
