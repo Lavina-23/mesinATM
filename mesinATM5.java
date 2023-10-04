@@ -13,10 +13,12 @@ public class mesinATM5 {
         double bunga = 0.2, jml_tabungan_akhir;
 
 
+        System.out.print("Masukkan Nomor Rekening anda : ");
+        noRek = sc.nextInt();
         System.out.print("Masukkan PIN anda : ");
         pin = sc.nextInt();
         
-        if (pin == 123) {
+        if (pin == 123 && noRek == 1234567890) {
             System.out.print("Masukkan jumlah saldo anda : ");
             jmlSaldo = sc.nextInt();
 
