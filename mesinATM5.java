@@ -43,8 +43,7 @@ public class mesinATM5 {
                         System.out.println("Jumlah uang yang anda tarik melebihi jumlah saldo anda !");
                     }
                     break;
-                case 2:
-                // Transfer kerjakan disini
+                case 2 :
                     System.out.print("\nMasukkan nomor rekening tujuan : ");
                     noRek = sc.nextInt();
                     System.out.print("Masukkan nominal yang ingin di transfer : ");
@@ -79,5 +78,6 @@ public class mesinATM5 {
                 System.out.println("PIN anda salah !");
             }
             sc.close();
+            System.out.println("coba");
     }
 }
