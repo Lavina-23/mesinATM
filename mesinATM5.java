@@ -43,7 +43,24 @@ public class mesinATM5 {
                         System.out.println("Jumlah uang yang anda tarik melebihi jumlah saldo anda !");
                     }
                     break;
-            
+                case 2:
+                // Transfer kerjakan disini
+                    System.out.print("\nMasukkan nomor rekening tujuan : ");
+                    noRek = sc.nextInt();
+                    System.out.print("Masukkan nominal yang ingin di transfer : ");
+                    jmlTF = sc.nextInt();
+
+                    if (jmlTF <= jmlSaldo) {
+                    sisaSaldo = jmlSaldo - jmlTF;
+
+                    System.out.println("\n******** TRANSFER BERHASIL ********");
+                    System.out.println("\nJumlah Transfer     : " + jmlTF);
+                    System.out.println("Sisa Saldo          : " + sisaSaldo);
+                    System.out.println("\n******* Sampai Jumpa Kembali *******");
+                    } else {
+                        System.out.println("\nNominal uang yang anda masukkan tidak valid !");
+                    }
+                    break;
                 case 3:
                     // Cek Saldo kerjakan disini
                     System.out.println("masukkan lama menabung anda");
