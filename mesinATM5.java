@@ -8,28 +8,37 @@ public class mesinATM5 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        int pin, menu, jmlSaldo, jmlTarik, jmlTF, noRek, lama_menabung, sisaSaldo; 
+        int pin, menu, jmlSaldo, jmlTarik, jmlTF, noRek, lama_menabung, sisaSaldo;
         double bunga = 0.2, jml_tabungan_akhir;
         String konfirmasi = "ya";
+        boolean login = false;
+
+        do {
+            System.out.print("Masukkan Nomor Rekening anda : ");
+            noRek = sc.nextInt();
+            System.out.print("Masukkan PIN anda : ");
+            pin = sc.nextInt();
+
+            if (pin == 123 && noRek == 1234567890) {
+                login = true;
+
+                System.out.print("Masukkan jumlah saldo anda : ");
+                jmlSaldo = sc.nextInt();
+
+                System.out.print("Masukkan lama menabung anda");
+                lama_menabung= sc.nextInt();
         
-        System.out.print("Masukkan Nomor Rekening anda : ");
-        noRek = sc.nextInt();
-        System.out.print("Masukkan PIN anda : ");
-        pin = sc.nextInt();
+                bunga= lama_menabung*bunga*jmlSaldo;
+                jml_tabungan_akhir=bunga+jmlSaldo;
 
-        if (pin == 123 && noRek == 1234567890) {
-            System.out.println("Masukkan jumlah saldo anda : ");
-            jmlSaldo = sc.nextInt();
+                System.out.println("\nSilakan Pilih Menu Dibawah Ini");
+                System.out.println("\n1. Tarik Tunai \n2. Transfer");
+                System.out.println("\nKetik 1 atau 2");
+                menu = sc.nextInt();
+        
 
-            System.out.println("\nSilakan Pilih Menu Dibawah ini");
-            System.out.println("\n1. tarik Tunai \n2. Transfer \n3. Cek Saldo");
-            System.out.println("\nketik 1, 2 atau 3");
-            menu = sc.nextInt();
-
-            
-
-            switch (menu) {
-                case 1:
+                switch (menu) {
+                    case 1:
                     // Tarik Tunai dikerjakan disini
                     do {    
                     System.out.println("=== Penarikan Tunai ===");
@@ -66,19 +75,30 @@ public class mesinATM5 {
                     } 
                 } while (true);
 
-                
-                case 2:
-                    // Transfer kerjakan disini
-                    break;
-                case 3:
-                    // Cek Saldo kerjakan disini
-                    break;
-                default:
-                    break;
+                    case 2 :
+                        System.out.print("\nMasukkan nomor rekening tujuan : ");
+                        noRek = sc.nextInt();
+                        System.out.print("Masukkan nominal yang ingin di transfer : ");
+                        jmlTF = sc.nextInt();
+
+                        if (jmlTF <= jmlSaldo) {
+                        sisaSaldo = (int) jml_tabungan_akhir - jmlTF;
+
+                        System.out.println("\n******** TRANSFER BERHASIL ********");
+                        System.out.println("\nJumlah Transfer     : " + jmlTF);
+                        System.out.println("Sisa Saldo          : " + sisaSaldo);
+                        System.out.println("\n******* Sampai Jumpa Kembali *******");
+                        } else {
+                            System.out.println("\nNominal uang yang anda masukkan tidak valid !");
+                        }
+                        break;
+                    default:
+                        break;
+                    }
+            } else {
+                System.out.println("Nomor rekening dan PIN salah !");
             }
-        } else {
-            System.out.println("PIN anda salah !");
-        }
+        } while (!login);
         sc.close();
     }
 }
