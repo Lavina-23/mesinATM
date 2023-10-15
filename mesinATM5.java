@@ -8,10 +8,9 @@ public class mesinATM5 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-
         int pin, menu, jmlSaldo, jmlTarik, jmlTF, noRek, lama_menabung, sisaSaldo;
         double bunga = 0.2, jml_tabungan_akhir;
-        String konfirmasi;
+        String konfirmasi = "ya";
         boolean login = false;
 
         do {
@@ -41,18 +40,41 @@ public class mesinATM5 {
                 switch (menu) {
                     case 1:
                     // Tarik Tunai dikerjakan disini
-                        System.out.println("Masukkan jumlah uang yang akan ditarik ");
-                        jmlTarik = sc.nextInt();
+                    do {    
+                    System.out.println("=== Penarikan Tunai ===");
+                    System.out.println("Pilih Jumlah Penarikan : ");
+                    System.out.println("1. 100000");
+                    System.out.println("2. 200000");
+                    System.out.println("3. 1000000");
+                    System.out.println("4. 2000000");
+                    menu = sc.nextInt();
+                    
 
-                        sisaSaldo = (int) jml_tabungan_akhir - jmlTarik;
+                    if (menu == 1) {
+                        jmlTarik = 100000;
+                    }else if (menu == 2) {
+                        jmlTarik = 200000;
+                    }else if (menu == 3) {
+                        jmlTarik = 1000000;
+                    }else if (menu == 4) {
+                        jmlTarik = 2000000;
+                    }else {
+                        System.out.println("Menu invalid");
+                        continue;
+                    } 
 
-                        if (jmlTarik <= jmlSaldo) {
-                            System.out.println("Sisa saldo : " + sisaSaldo);
-                        }
-                        else {
-                            System.out.println("Jumlah uang yang anda tarik melebihi jumlah saldo anda !");
-                        }
+                    System.out.println("Anda yakin? (ya/tidak): ");
+                    konfirmasi = sc.next();
+
+                    if (konfirmasi.equalsIgnoreCase("ya")) {
+                        sisaSaldo = jmlSaldo - jmlTarik;
+                        System.out.println("Sisa Saldo : " + sisaSaldo);
                         break;
+                    } else {
+                        continue;
+                    } 
+                } while (true);
+
                     case 2 :
                         System.out.print("\nMasukkan nomor rekening tujuan : ");
                         noRek = sc.nextInt();
