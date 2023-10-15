@@ -10,8 +10,8 @@ public class mesinATM5 {
 
 
         int pin, menu, jmlSaldo, jmlTarik, jmlTF, noRek, lama_menabung, sisaSaldo;
-        double bunga = 0.2, jml_tabungan_akhir;
-
+        double bunga = 0.2, jml_tabungan_akhir = 0;
+        String konfirmasi = "ya";
 
         System.out.print("Masukkan Nomor Rekening anda : ");
         noRek = sc.nextInt();
@@ -44,39 +44,51 @@ public class mesinATM5 {
                     break;
                 case 2:
                 // Transfer kerjakan disini
-                    System.out.print("\nMasukkan nomor rekening tujuan : ");
+
+                    do {
+                        System.out.print("\nMasukkan nomor rekening tujuan : ");
                     noRek = sc.nextInt();
-                    System.out.print("Masukkan nominal yang ingin di transfer : ");
-                    jmlTF = sc.nextInt();
+                    
 
-                    if (jmlTF <= jmlSaldo) {
-                    sisaSaldo = jmlSaldo - jmlTF;
+                    System.out.println("\nSilahkan Plih Menu Dibawah ini");
+                    System.out.println("\n1. 100000 \n2. 500000 \n3. 1000000 \n4. 5000000");
+                    System.out.println("Ketik 1, 2, 3 atau 4 ");
+                    menu = sc.nextInt();
 
-                    System.out.println("\n******** TRANSFER BERHASIL ********");
-                    System.out.println("\nJumlah Transfer     : " + jmlTF);
-                    System.out.println("Sisa Saldo          : " + sisaSaldo);
-                    System.out.println("\n******* Sampai Jumpa Kembali *******");
-                    } else {
-                        System.out.println("\nNominal uang yang anda masukkan tidak valid !");
-                    }
+                    
+                        if (menu == 1) {
+                            jmlTF = 100000;
+                        }else if (menu == 2) {
+                            jmlTF = 500000;
+                        }else if (menu == 3) {
+                            jmlTF = 1000000;
+                        }else if (menu == 4) {
+                            jmlTF = 5000000;
+                        }else {
+                            System.out.println("Menu invalid");
+                            continue;
+                        } 
+
+                        System.out.println("Apakah anda yakin? (ya/tidak)");
+                        konfirmasi = sc.next();
+
+                        if (konfirmasi.equalsIgnoreCase("ya") && jmlSaldo <= jml_tabungan_akhir){
+                            sisaSaldo = jmlSaldo - jmlTF;
+    
+                            System.out.println("\n******** TRANSFER BERHASIL ********");
+                            System.out.println("\nJumlah Transfer     : " + jmlTF);
+                            System.out.println("Sisa Saldo          : " + sisaSaldo);
+                            System.out.println("\n******* Sampai Jumpa Kembali *******");
+                        } else {
+                            System.out.println("\nNominal uang yang anda masukkan tidak valid !");
+                        }
+                        
+                    } while (true);
+                    default :
                     break;
-                case 3:
-                    // Cek Saldo kerjakan disini
-                    System.out.println("masukkan lama menabung anda");
-                    lama_menabung= sc.nextInt();
 
-                    bunga= lama_menabung*bunga*jmlSaldo;
-                    jml_tabungan_akhir=bunga+jmlSaldo;
-
-                    System.out.println("Bunga adalah " +bunga);
-                    System.out.println("Jumlah tabungan akhir anda adalah " +jml_tabungan_akhir);
-                    break;
-                default:
-                    break;
-                }
-            } else {
-                System.out.println("PIN anda salah !");
             }
             sc.close();
     }
+}
 }
