@@ -81,46 +81,46 @@ public class mesinATM5 {
                     } while (true);
                 break;
 
-                    // case 2 :
-                    //     do {
-                    //         System.out.print("\nMasukkan nomor rekening tujuan : ");
-                    //         noRek = sc.nextInt();
+                    case 2 :
+                        do {
+                            System.out.print("\nMasukkan nomor rekening tujuan : ");
+                            noRek = sc.nextInt();
                             
 
-                    //         System.out.println("\nSilahkan Plih Menu Dibawah ini");
-                    //         System.out.println("\n1. 100000 \n2. 500000 \n3. 1000000 \n4. 5000000");
-                    //         System.out.println("Ketik 1, 2, 3 atau 4 ");
-                    //         menu = sc.nextInt();
+                            System.out.println("\nSilahkan Plih Menu Dibawah ini");
+                            System.out.println("\n1. 100000 \n2. 500000 \n3. 1000000 \n4. 5000000");
+                            System.out.println("Ketik 1, 2, 3 atau 4 ");
+                            menu = sc.nextInt();
 
                         
-                    //         if (menu == 1) {
-                    //             jmlTF = 100000;
-                    //         }else if (menu == 2) {
-                    //             jmlTF = 500000;
-                    //         }else if (menu == 3) {
-                    //             jmlTF = 1000000;
-                    //         }else if (menu == 4) {
-                    //             jmlTF = 5000000;
-                    //         }else {
-                    //             System.out.println("Menu invalid");
-                    //             continue;
-                    //         } 
+                            if (menu == 1) {
+                                jmlTF = 100000;
+                            }else if (menu == 2) {
+                                jmlTF = 500000;
+                            }else if (menu == 3) {
+                                jmlTF = 1000000;
+                            }else if (menu == 4) {
+                                jmlTF = 5000000;
+                            }else {
+                                System.out.println("Menu invalid");
+                                continue;
+                            } 
 
-                    //         System.out.println("Apakah anda yakin? (ya/tidak)");
-                    //         konfirmasi = sc.next();
+                            System.out.println("Apakah anda yakin? (ya/tidak)");
+                            konfirmasi = sc.next();
 
-                    //         if (konfirmasi.equalsIgnoreCase("ya") && jmlSaldo <= jml_tabungan_akhir){
-                    //             sisaSaldo = (int) jml_tabungan_akhir - jmlTF;
-        
-                    //             System.out.println("\n******** TRANSFER BERHASIL ********");
-                    //             System.out.println("\nJumlah Transfer     : " + jmlTF);
-                    //             System.out.println("Sisa Saldo          : " + sisaSaldo);
-                    //             System.out.println("\n******* Sampai Jumpa Kembali *******");
-                    //             break;
-                    //         } else {
-                    //             continue;
-                    //         }
-                    //     } while (true);
+                            if (konfirmasi.equalsIgnoreCase("ya") && jmlSaldo[akun] >= jmlTF){
+                                sisaSaldo = (int) jmlSaldo[akun] - jmlTF;
+                                
+                                System.out.println("\n******** TRANSFER BERHASIL ********");
+                                System.out.println("\nJumlah Transfer     : " + jmlTF);
+                                System.out.println("Sisa Saldo          : " + sisaSaldo);
+                                System.out.println("\n******* Sampai Jumpa Kembali *******");
+                                break;
+                            } else {
+                                continue;
+                            }
+                        } while (true);
                     default:
                         break;
                     }
