@@ -26,14 +26,16 @@ public class mesinATM5 {
             if ((pin == 123 && noRek == 1234567890) && (akun <= jmlSaldo.length || akun > 0)) {
                 login = true;
 
-                // System.out.print("Masukkan jumlah saldo anda : ");
-                // jmlSaldo = sc.nextInt();
+                System.out.println("Jumlah saldo :" + jmlSaldo[akun]);
 
-                // System.out.print("Masukkan lama menabung anda");
-                // lama_menabung= sc.nextInt();
+                //System.out.print("Masukkan jumlah saldo anda : ");
+                //jmlSaldo = sc.nextInt();
+
+                //System.out.print("Masukkan lama menabung anda");
+                //lama_menabung= sc.nextInt();
         
-                // bunga= lama_menabung*bunga*jmlSaldo;
-                // jml_tabungan_akhir=bunga+jmlSaldo;
+                //bunga= lama_menabung*bunga*jmlSaldo[akun];
+                //jml_tabungan_akhir=bunga+jmlSaldo[akun];
 
                 System.out.println("\nSilakan Pilih Menu Dibawah Ini");
                 System.out.println("\n1. Tarik Tunai \n2. Transfer");
@@ -43,27 +45,23 @@ public class mesinATM5 {
 
                 switch (menu) {
                     case 1:
+                        int[] pilihanPenarikan = {100000, 200000, 1000000, 2000000};
+
                         do {    
                         System.out.println("=== Penarikan Tunai ===");
                         System.out.println("Pilih Jumlah Penarikan : ");
-                        System.out.println("1. 100000");
-                        System.out.println("2. 200000");
-                        System.out.println("3. 1000000");
-                        System.out.println("4. 2000000");
+
+                        for (int i = 0; i < pilihanPenarikan.length; i++) {
+                            System.out.println((i+1) + ". " + pilihanPenarikan[i]);
+                        }
                         menu = sc.nextInt();
-                        
-                        if (menu == 1) {
-                            jmlTarik = 100000;
-                        }else if (menu == 2) {
-                            jmlTarik = 200000;
-                        }else if (menu == 3) {
-                            jmlTarik = 1000000;
-                        }else if (menu == 4) {
-                            jmlTarik = 2000000;
-                        }else {
+
+                        if (menu >= 1 && menu <= pilihanPenarikan.length) {
+                            jmlTarik = pilihanPenarikan[menu - 1];
+                        } else {
                             System.out.println("Menu invalid");
                             continue;
-                        } 
+                        }
                         
                         System.out.println("Anda yakin? (ya/tidak): ");
                         konfirmasi = sc.next();
