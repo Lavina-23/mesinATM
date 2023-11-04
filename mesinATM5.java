@@ -64,10 +64,13 @@ public class mesinATM5 {
 
                 switch (menu) {
                     case 1:
-                        
+                        //Cek Saldo
+                        System.out.println("\n======== JUMLAH SALDO =========");
+                        System.out.println(saldo);
+                        System.out.println("===============================");
                         break;
                     case 2:
-                        
+                        // Tarik Tunai
                         break;
                     case 3:
                         // Setor tunai
@@ -92,35 +95,42 @@ public class mesinATM5 {
                                 System.out.println("||           2. 100.000           ||");
                                 System.out.println("||           3. 500.000           ||");
                                 System.out.println("||           4. 1000.000          ||");
+                                System.out.println("||           5. Batal             ||");
                                 System.out.println("||================================||");
                                 System.out.print("\nPilih Jumlah Transfer    : ");
-                                menu = sc.nextInt();
+                                int menuTF = sc.nextInt();
     
-                                if (menu == 1) {
+                                if (menuTF == 1) {
                                     jmlTF = 50_000;
-                                } else if (menu == 2) {
+                                } else if (menuTF == 2) {
                                     jmlTF = 100_000;
-                                } else if (menu == 3) {
+                                } else if (menuTF == 3) {
                                     jmlTF = 500_0000;
-                                } else if (menu == 4) {
+                                } else if (menuTF == 4) {
                                     jmlTF = 1_000_000;
+                                } else if (menuTF == 5) {
+                                    break;
                                 } else {
                                     System.out.println("Menu invalid");
                                     continue;
                                 }
     
-                                System.out.print("Apakah anda yakin? (y/n) : ");
-                                konfirmasi = sc.next();
-    
-                                if (konfirmasi.equalsIgnoreCase("y") && saldo >= jmlTF) {
-                                    sisaSaldo = saldo - jmlTF;
-    
-                                    System.out.println("\n======== TRANSFER BERHASIL =========");
-                                    System.out.println("\nJumlah Transfer     : " + jmlTF);
-                                    System.out.println("Sisa Saldo          : " + sisaSaldo);
-                                    System.out.println("\n======= Sampai Jumpa Kembali =======");
-                                    break;
+                                if (menuTF < 5) {
+                                    System.out.print("Apakah anda yakin? (y/n) : ");
+                                    konfirmasi = sc.next();
+                                    if (konfirmasi.equalsIgnoreCase("y") && saldo >= jmlTF) {
+                                        sisaSaldo = saldo - jmlTF;
+        
+                                        System.out.println("\n===================================");
+                                        System.out.println("        TRANSFER BERHASIL !          ");
+                                        System.out.println("===================================");
+                                        System.out.println("\nJumlah Transfer     : " + jmlTF);
+                                        System.out.println("Sisa Saldo          : " + sisaSaldo);
+                                        System.out.println("\n====== Sampai Jumpa Kembali =======");
+                                        break;
+                                    }
                                 }
+    
                             }
                         } while (true);
                         break;
