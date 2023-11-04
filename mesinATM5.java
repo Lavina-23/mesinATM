@@ -74,6 +74,43 @@ public class mesinATM5 {
                         break;
                     case 3:
                         // Setor tunai
+                        for (int i = 0; i < nasabah.length; i++) {
+                            int totalSetoran = 0;
+                            int jmlSetor = 0;
+
+                            System.out.println("\nSilahkan Pilih Menu Dibawah ini");
+                            System.out.println("\n1. 100000 \n2. 500000 \n3. 1000000 \n4. 5000000");
+                            System.out.println("Ketik 1, 2, 3 atau 4 ");
+                            menu = sc.nextInt();
+
+                            if (menu == 1) {
+                                    jmlSetor = 100000;
+                                } else if (menu == 2) {
+                                    jmlSetor = 500000;
+                                } else if (menu == 3) {
+                                    jmlSetor = 1000000;
+                                } else if (menu == 4) {
+                                    jmlSetor = 5000000;
+                                } else if (menu == 5) {
+                                    break;
+                                } else {
+                                    System.out.println("Menu invalid");
+                                    continue;
+                                }
+
+                                if (menu < 5) {
+                                    System.out.print("Apakah anda yakin? (y/n) : ");
+                                    konfirmasi = sc.next();
+                                    if (konfirmasi.equalsIgnoreCase("y") && saldo >= totalSetoran) {
+                                        totalSetoran = saldo + jmlSetor;
+
+                                        // Menampilkan total setoran
+                                        System.out.println("\nTotal saldo anda : " + totalSetoran);
+                                        System.out.println("\n====== Sampai Jumpa Kembali =======");
+                                        break;
+                                    }
+                                }
+                        }
                         break;
                     case 4:
                         // Transfer
@@ -130,7 +167,6 @@ public class mesinATM5 {
                                         break;
                                     }
                                 }
-    
                             }
                         } while (true);
                         break;
