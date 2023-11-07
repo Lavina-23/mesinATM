@@ -4,9 +4,9 @@ public class mesinATM5 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        int menu;
+        int menu, jmlTarik, totalTF = 0, admin = 0;
         boolean login = false, transfer = false;
-        int jmlTF = 0, saldo = 0, sisaSaldo = 0, jmlSetor = 0, totalSetoran = 0, jmlTarik;
+        int jmlTF = 0, saldo = 0, sisaSaldo = 0, jmlSetor = 0, totalSetoran = 0;
         String konfirmasi;
 
         String[][] nasabah = new String[3][4];
@@ -187,70 +187,94 @@ public class mesinATM5 {
                     break;
                 case 4:
                     // Transfer
-                    do {
-                        System.out.print("Masukkan nomor rekening tujuan : ");
-                        String rekTF = sc.nextLine();
+                    while (true) {
+                        do {
+                            System.out.print("Masukkan nomor rekening tujuan : ");
+                            String rekTF = sc.nextLine();
 
-                        for (int i = 0; i < nasabah.length; i++) {
-                            if (nasabah[i][0].equals(rekTF)) {
-                                transfer = true;
+                            for (int i = 0; i < nasabah.length; i++) {
+                                if (nasabah[i][0].equals(rekTF)) {
+                                    transfer = true;
+                                }
+                            }
+
+                            if (transfer == true) {
+                                continue;
+                            } else {
+                                System.out.println("\nNomor Rekening Tujuan Tidak Valid\n");
+                            }
+                        } while (!transfer);
+
+                        while (true) {
+                            System.out.println("\n||================================||");
+                            System.out.println("||             TRANSFER           ||");
+                            System.out.println("||________________________________||");
+                            System.out.println("||           1. 50.000            ||");
+                            System.out.println("||           2. 100.000           ||");
+                            System.out.println("||           3. 500.000           ||");
+                            System.out.println("||           4. 1.000.000         ||");
+                            System.out.println("||           5. Selesai           ||");
+                            System.out.println("||================================||");
+                            System.out.print("\nPilih Jumlah Transfer : ");
+                            menu = sc.nextInt();
+
+                            if (menu == 1) {
+                                jmlTF = 50_000;
+                            } else if (menu == 2) {
+                                jmlTF = 100_000;
+                            } else if (menu == 3) {
+                                jmlTF = 500_0000;
+                            } else if (menu == 4) {
+                                jmlTF = 1_000_000;
+                            } else if (menu == 5) {
+                                break;
+                            } else {
+                                System.out.println("Menu invalid");
+                                continue;
+                            }
+
+                            if ((saldo - 50_000) > jmlTF) {
+                                totalTF += jmlTF;
+                                System.out.println("Total Transfer saat ini : " + totalTF);
+                            } else {
+                                System.out.println("Saldo Anda Kurang !");
                             }
                         }
 
-                        if (transfer == true) {
-                            continue;
-                        } else {
-                            System.out.println("\nNomor Rekening Tujuan Tidak Valid\n");
-                        }
-                    } while (!transfer);
-
-                    System.out.println("\n||================================||");
-                    System.out.println("||             TRANSFER           ||");
-                    System.out.println("||________________________________||");
-                    System.out.println("||           1. 100.000           ||");
-                    System.out.println("||           2. 200.000           ||");
-                    System.out.println("||           3. 500.000           ||");
-                    System.out.println("||           4. 1.000.000         ||");
-                    System.out.println("||           5. Batal             ||");
-                    System.out.println("||================================||");
-                    System.out.print("\nPilih Jumlah Transfer : ");
-                    menu = sc.nextInt();
-
-                    if (menu == 1) {
-                        jmlTF = 50_000;
-                    } else if (menu == 2) {
-                        jmlTF = 100_000;
-                    } else if (menu == 3) {
-                        jmlTF = 500_0000;
-                    } else if (menu == 4) {
-                        jmlTF = 1_000_000;
-                    } else {
-                        System.out.println("Menu invalid");
-                        continue;
-                    }
-
-                    System.out.print("Apakah anda yakin? (y/n) : ");
-                    konfirmasi = sc.next();
-
-                    if (konfirmasi.equalsIgnoreCase("y") && (saldo - 50_000) > jmlTF) {
-                        sisaSaldo = saldo - jmlTF;
-
-                        System.out.println("\n===================================");
-                        System.out.println("        TRANSFER BERHASIL !          ");
-                        System.out.println("===================================");
-                        System.out.println("\nJumlah Transfer     : " + jmlTF);
-                        System.out.println("Sisa Saldo          : " + sisaSaldo);
-                        System.out.println("\n====== Sampai Jumpa Kembali =======");
-
-                        System.out.print("\nKembali ke menu utama ? (y/n) : ");
+                        System.out.print("Apakah anda yakin? (y/n) : ");
                         konfirmasi = sc.next();
 
                         if (konfirmasi.equalsIgnoreCase("y")) {
-                            break;
+                            admin = 2_000;
+                            int totalTF2 = totalTF + admin;
+
+                            if ((saldo - 50_000) > totalTF) {
+                                sisaSaldo = saldo - totalTF2;
+
+                                System.out.println("\n===================================");
+                                System.out.println("        TRANSFER BERHASIL !          ");
+                                System.out.println("===================================");
+                                System.out.println("\nJumlah Transfer     : " + totalTF);
+                                System.out.println("Biaya Admin         : " + admin);
+                                System.out.println("Total Transfer      : " + totalTF2);
+                                System.out.println("Sisa Saldo          : " + sisaSaldo);
+                                System.out.println("\n====== Sampai Jumpa Kembali =======");
+
+                                System.out.print("\nKembali ke menu utama ? (y/n) : ");
+                                konfirmasi = sc.next();
+
+                                if (konfirmasi.equalsIgnoreCase("y")) {
+                                    break;
+                                } else {
+                                    login = false;
+                                }
+                                break;
+                            } else {
+                                System.out.println("Saldo anda kurang !");
+                            }
                         } else {
-                            login = false;
+                            break;
                         }
-                        break;
                     }
                     break;
                 case 5:
