@@ -83,55 +83,69 @@ public class mesinATM5 {
                     break;
                 case 2:
                     // Tarik tunai
-                    System.out.println("\n||================================||");
-                    System.out.println("||         TARIK TUNAI            ||");
-                    System.out.println("||________________________________||");
-                    System.out.println("||           1. 100.000           ||");
-                    System.out.println("||           2. 200.000           ||");
-                    System.out.println("||           3. 500.000           ||");
-                    System.out.println("||           4. 1.000.000         ||");
-                    System.out.println("||           5. Batal             ||");
-                    System.out.println("||================================||");
-                    System.out.print("\nPilih Jumlah Tarik Tunai : ");
-                    menu = sc.nextInt();
+                    do {
+                        konfirmasi = "y";
+                        do {
+                            System.out.println("\n||================================||");
+                            System.out.println("||         TARIK TUNAI            ||");
+                            System.out.println("||________________________________||");
+                            System.out.println("||           1. 100.000           ||");
+                            System.out.println("||           2. 200.000           ||");
+                            System.out.println("||           3. 500.000           ||");
+                            System.out.println("||           4. 1.000.000         ||");
+                            System.out.println("||           5. Batal             ||");
+                            System.out.println("||================================||");
+                            System.out.print("\nPilih Jumlah Tarik Tunai : ");
+                            menu = sc.nextInt();
+                            sc.nextLine();
 
-                    if (menu == 1) {
-                        jmlTarik = 100_000;
-                    } else if (menu == 2) {
-                        jmlTarik = 200_000;
-                    } else if (menu == 3) {
-                        jmlTarik = 500_000;
-                    } else if (menu == 4) {
-                        jmlTarik = 1_000_000;
-                    } else if (menu == 5) {
-                        break; // Kembali ke pemilihan menu utama
-                    } else {
-                        System.out.println("Menu invalid");
-                        continue;
-                    }
+                            if (menu == 1) {
+                                jmlTarik = 100_000;
+                            } else if (menu == 2) {
+                                jmlTarik = 200_000;
+                            } else if (menu == 3) {
+                                jmlTarik = 500_000;
+                            } else if (menu == 4) {
+                                jmlTarik = 1_000_000;
+                            } else if (menu == 5) {
+                                break; // Kembali ke pemilihan menu utama
+                            } else {
+                                System.out.println("Menu invalid");
+                                continue;
+                            }
 
-                    System.out.print("Apakah anda yakin? (y/n) : ");
+                            System.out.print("Apakah anda yakin? (y/n) : ");
+                            konfirmasi = sc.next();
+
+                            if (konfirmasi.equalsIgnoreCase("y") && (saldo - 50_000) > jmlTarik) {
+                                sisaSaldo = saldo - jmlTarik;
+
+                                System.out.println("\n===================================");
+                                System.out.println("       PENARIKAN TUNAI BERHASIL !     ");
+                                System.out.println("===================================");
+                                System.out.println("Sisa Saldo           : " + sisaSaldo);
+                                System.out.println("\n====== Sampai Jumpa Kembali =======");
+
+                            } else {
+                                System.out.println("Penarikan dibatalkan atau Saldo Anda tidak mencukupi");
+                                break;
+                            }
+                            
+                            System.out.print("\nMelanjutkan penarikan tunai? (y/n)");
+                            konfirmasi = sc.next();
+
+                        } while (konfirmasi.equalsIgnoreCase("y"));
+
+                    System.out.print("\nKembali ke menu utama? (y/n)");
                     konfirmasi = sc.next();
-
-                    if (konfirmasi.equalsIgnoreCase("y") && (saldo - 50_000) > jmlTarik) {
-                        sisaSaldo = saldo - jmlTarik;
-
-                        System.out.println("\n===================================");
-                        System.out.println("       PENARIKAN TUNAI BERHASIL !     ");
-                        System.out.println("===================================");
-                        System.out.println("Sisa Saldo           : " + sisaSaldo);
-                        System.out.println("\n====== Sampai Jumpa Kembali =======");
-
-                    }
-
-                    System.out.print("\nKembali ke menu utama ? (y/n) : ");
-                    konfirmasi = sc.next();
+                    sc.nextLine();
 
                     if (konfirmasi.equalsIgnoreCase("y")) {
                         break;
                     } else {
                         login = false;
                     }
+                    } while (!login);
                     break;
                 case 3:
                     // Setor tunai
