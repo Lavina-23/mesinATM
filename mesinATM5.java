@@ -175,9 +175,25 @@ public class mesinATM5 {
                         System.out.println("Menu invalid");
                         continue;
                     }
+                    
+                    if ((saldo - 50_000) > jmlTF) {
+                        totalSetoran += jmlSetor;
+                        totalSetoran = saldo + jmlSetor;
+                        System.out.println("Total Transfer saat ini : " + totalSetoran);
+                    } else {
+                        System.out.println("Saldo Anda Kurang !");
+                    }
 
                     System.out.print("Apakah anda yakin? (y/n) : ");
                     konfirmasi = sc.next();
+
+                    if (konfirmasi.equalsIgnoreCase("y")) {
+                            admin = 2_000;
+                            int totalSetoran2 = totalSetoran + admin;
+
+                            if ((saldo - 50_000) > totalTF) {
+                                sisaSaldo = saldo - totalSetoran2;
+
 
                     if (konfirmasi.equalsIgnoreCase("y") && (saldo - 50_000) > jmlSetor) {
                         totalSetoran = saldo + jmlSetor;
@@ -198,7 +214,10 @@ public class mesinATM5 {
                     } else {
                         login = false;
                     }
+                }
+            }
                     break;
+
                 case 4:
                     // Transfer
                     while (true) {
