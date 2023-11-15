@@ -163,12 +163,12 @@ public class mesinATM5 {
                         continue;
                     }
                     
-                    if ((saldo - 50_000) > jmlTF) {
+                    if ((saldo - 50_000) > jmlSetor) { 
                         totalSetoran += jmlSetor;
                         totalSetoran = saldo + jmlSetor;
-                        System.out.println("Total Transfer saat ini : " + totalSetoran);
+                        System.out.println("Total Saldo Anda Saat Ini : " + totalSetoran);
                     } else {
-                        System.out.println("Saldo Anda Kurang !");
+                        System.out.println("Saldo Anda Mencapai Batas Minimum, Silahkan Hubungi Layanan Bank Kami");
                     }
                     }
                     
@@ -176,23 +176,22 @@ public class mesinATM5 {
                     konfirmasi = sc.next();
 
                     if (konfirmasi.equalsIgnoreCase("y")) {
-                            admin = 2_000;
-                            int totalSetoran2 = totalSetoran + admin;
-
-                            if ((saldo - 50_000) > totalTF) {
-                                sisaSaldo = saldo - totalSetoran2;
-
-
-                    if (konfirmasi.equalsIgnoreCase("y") && (saldo - 50_000) > jmlSetor) {
-                        totalSetoran = saldo + jmlSetor;
-
-                        // Menampilkan total setoran
-                        System.out.println("\n===================================");
-                        System.out.println("        SETOR TUNAI BERHASIL !       ");
-                        System.out.println("===================================");
-                        System.out.println("Total Saldo           : " + totalSetoran);
-                        System.out.println("\n====== Sampai Jumpa Kembali =======");
-                    }
+                        admin = 2_000;
+                        int totalSetoran2 = totalSetoran + admin;
+                        
+                        if ((saldo - 50_000) > totalSetoran) {
+                            sisaSaldo = saldo + totalSetoran2;
+                            
+                            if (konfirmasi.equalsIgnoreCase("y") && (saldo - 50_000) > jmlSetor) {
+                                totalSetoran = saldo + jmlSetor;
+                                
+                                // Menampilkan total setoran
+                                System.out.println("\n===================================");
+                                System.out.println("        SETOR TUNAI BERHASIL !       ");
+                                System.out.println("===================================");
+                                System.out.println("Total Saldo           : " + totalSetoran2);
+                                System.out.println("\n====== Sampai Jumpa Kembali =======");
+                            }
 
                     System.out.print("\nKembali ke menu utama ? (y/n) : ");
                     konfirmasi = sc.next();
