@@ -83,9 +83,8 @@ public class mesinATM5 {
                     break;
                 case 2:
                     // Tarik tunai
-                    do {
-                        konfirmasi = "y";
-                        do {
+                        jmlTarik = 0;
+                        while (true) {
                             System.out.println("\n||================================||");
                             System.out.println("||         TARIK TUNAI            ||");
                             System.out.println("||________________________________||");
@@ -93,27 +92,27 @@ public class mesinATM5 {
                             System.out.println("||           2. 200.000           ||");
                             System.out.println("||           3. 500.000           ||");
                             System.out.println("||           4. 1.000.000         ||");
-                            System.out.println("||           5. Batal             ||");
+                            System.out.println("||           5. Selesai           ||");
                             System.out.println("||================================||");
                             System.out.print("\nPilih Jumlah Tarik Tunai : ");
                             menu = sc.nextInt();
                             sc.nextLine();
 
                             if (menu == 1) {
-                                jmlTarik = 100_000;
+                                jmlTarik += 100_000;
                             } else if (menu == 2) {
-                                jmlTarik = 200_000;
+                                jmlTarik += 200_000;
                             } else if (menu == 3) {
-                                jmlTarik = 500_000;
+                                jmlTarik += 500_000;
                             } else if (menu == 4) {
-                                jmlTarik = 1_000_000;
+                                jmlTarik += 1_000_000;
                             } else if (menu == 5) {
                                 break; // Kembali ke pemilihan menu utama
                             } else {
                                 System.out.println("Menu invalid");
                                 continue;
                             }
-
+                        }
                             System.out.print("Apakah anda yakin? (y/n) : ");
                             konfirmasi = sc.next();
 
@@ -126,15 +125,11 @@ public class mesinATM5 {
                                 System.out.println("Sisa Saldo           : " + sisaSaldo);
                                 System.out.println("\n====== Sampai Jumpa Kembali =======");
 
+                                saldo = sisaSaldo;
                             } else {
                                 System.out.println("Penarikan dibatalkan atau Saldo Anda tidak mencukupi");
                                 break;
                             }
-                            
-                            System.out.print("\nMelanjutkan penarikan tunai? (y/n)");
-                            konfirmasi = sc.next();
-
-                        } while (konfirmasi.equalsIgnoreCase("y"));
 
                     System.out.print("\nKembali ke menu utama? (y/n)");
                     konfirmasi = sc.next();
@@ -145,7 +140,6 @@ public class mesinATM5 {
                     } else {
                         login = false;
                     }
-                    } while (!login);
                     break;
                 case 3:
                     // Setor tunai
@@ -175,9 +169,25 @@ public class mesinATM5 {
                         System.out.println("Menu invalid");
                         continue;
                     }
+                    
+                    if ((saldo - 50_000) > jmlTF) {
+                        totalSetoran += jmlSetor;
+                        totalSetoran = saldo + jmlSetor;
+                        System.out.println("Total Transfer saat ini : " + totalSetoran);
+                    } else {
+                        System.out.println("Saldo Anda Kurang !");
+                    }
 
                     System.out.print("Apakah anda yakin? (y/n) : ");
                     konfirmasi = sc.next();
+
+                    if (konfirmasi.equalsIgnoreCase("y")) {
+                            admin = 2_000;
+                            int totalSetoran2 = totalSetoran + admin;
+
+                            if ((saldo - 50_000) > totalTF) {
+                                sisaSaldo = saldo - totalSetoran2;
+
 
                     if (konfirmasi.equalsIgnoreCase("y") && (saldo - 50_000) > jmlSetor) {
                         totalSetoran = saldo + jmlSetor;
@@ -198,7 +208,10 @@ public class mesinATM5 {
                     } else {
                         login = false;
                     }
+                }
+            }
                     break;
+
                 case 4:
                     // Transfer
                     while (true) {
