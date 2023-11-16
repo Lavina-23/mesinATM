@@ -143,7 +143,8 @@ public class mesinATM5 {
                     break;
                 case 3:
                     // Setor tunai
-                    System.out.println("\n||================================||");
+                    while (true) {
+                        System.out.println("\n||================================||");
                     System.out.println("||           SETOR TUNAI          ||");
                     System.out.println("||________________________________||");
                     System.out.println("||           1. 100.000           ||");
@@ -177,7 +178,6 @@ public class mesinATM5 {
                     } else {
                         System.out.println("Saldo Anda Kurang !");
                     }
-
                     System.out.print("Apakah anda yakin? (y/n) : ");
                     konfirmasi = sc.next();
 
