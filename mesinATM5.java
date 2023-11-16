@@ -83,53 +83,53 @@ public class mesinATM5 {
                     break;
                 case 2:
                     // Tarik tunai
-                        jmlTarik = 0;
-                        while (true) {
-                            System.out.println("\n||================================||");
-                            System.out.println("||         TARIK TUNAI            ||");
-                            System.out.println("||________________________________||");
-                            System.out.println("||           1. 100.000           ||");
-                            System.out.println("||           2. 200.000           ||");
-                            System.out.println("||           3. 500.000           ||");
-                            System.out.println("||           4. 1.000.000         ||");
-                            System.out.println("||           5. Selesai           ||");
-                            System.out.println("||================================||");
-                            System.out.print("\nPilih Jumlah Tarik Tunai : ");
-                            menu = sc.nextInt();
-                            sc.nextLine();
+                    jmlTarik = 0;
+                    while (true) {
+                        System.out.println("\n||================================||");
+                        System.out.println("||         TARIK TUNAI            ||");
+                        System.out.println("||________________________________||");
+                        System.out.println("||           1. 100.000           ||");
+                        System.out.println("||           2. 200.000           ||");
+                        System.out.println("||           3. 500.000           ||");
+                        System.out.println("||           4. 1.000.000         ||");
+                        System.out.println("||           5. Selesai           ||");
+                        System.out.println("||================================||");
+                        System.out.print("\nPilih Jumlah Tarik Tunai : ");
+                        menu = sc.nextInt();
+                        sc.nextLine();
 
-                            if (menu == 1) {
-                                jmlTarik += 100_000;
-                            } else if (menu == 2) {
-                                jmlTarik += 200_000;
-                            } else if (menu == 3) {
-                                jmlTarik += 500_000;
-                            } else if (menu == 4) {
-                                jmlTarik += 1_000_000;
-                            } else if (menu == 5) {
-                                break; // Kembali ke pemilihan menu utama
-                            } else {
-                                System.out.println("Menu invalid");
-                                continue;
-                            }
+                        if (menu == 1) {
+                            jmlTarik += 100_000;
+                        } else if (menu == 2) {
+                            jmlTarik += 200_000;
+                        } else if (menu == 3) {
+                            jmlTarik += 500_000;
+                        } else if (menu == 4) {
+                            jmlTarik += 1_000_000;
+                        } else if (menu == 5) {
+                            break; // Kembali ke pemilihan menu utama
+                        } else {
+                            System.out.println("Menu invalid");
+                            continue;
                         }
-                            System.out.print("Apakah anda yakin? (y/n) : ");
-                            konfirmasi = sc.next();
+                    }
+                    System.out.print("Apakah anda yakin? (y/n) : ");
+                    konfirmasi = sc.next();
 
-                            if (konfirmasi.equalsIgnoreCase("y") && (saldo - 50_000) > jmlTarik) {
-                                sisaSaldo = saldo - jmlTarik;
+                    if (konfirmasi.equalsIgnoreCase("y") && (saldo - 50_000) > jmlTarik) {
+                        sisaSaldo = saldo - jmlTarik;
 
-                                System.out.println("\n===================================");
-                                System.out.println("       PENARIKAN TUNAI BERHASIL !     ");
-                                System.out.println("===================================");
-                                System.out.println("Sisa Saldo           : " + sisaSaldo);
-                                System.out.println("\n====== Sampai Jumpa Kembali =======");
+                        System.out.println("\n===================================");
+                        System.out.println("       PENARIKAN TUNAI BERHASIL !     ");
+                        System.out.println("===================================");
+                        System.out.println("Sisa Saldo           : " + sisaSaldo);
+                        System.out.println("\n====== Sampai Jumpa Kembali =======");
 
-                                saldo = sisaSaldo;
-                            } else {
-                                System.out.println("Penarikan dibatalkan atau Saldo Anda tidak mencukupi");
-                                break;
-                            }
+                        saldo = sisaSaldo;
+                    } else {
+                        System.out.println("Penarikan dibatalkan atau Saldo Anda tidak mencukupi");
+                        break;
+                    }
 
                     System.out.print("\nKembali ke menu utama? (y/n)");
                     konfirmasi = sc.next();
@@ -145,71 +145,71 @@ public class mesinATM5 {
                     // Setor tunai
                     while (true) {
                         System.out.println("\n||================================||");
-                    System.out.println("||           SETOR TUNAI          ||");
-                    System.out.println("||________________________________||");
-                    System.out.println("||           1. 100.000           ||");
-                    System.out.println("||           2. 200.000           ||");
-                    System.out.println("||           3. 500.000           ||");
-                    System.out.println("||           4. 1.000.000         ||");
-                    System.out.println("||           5. Batal             ||");
-                    System.out.println("||================================||");
-                    System.out.print("\nPilih Jumlah Setor Tunai : ");
-                    menu = sc.nextInt();
+                        System.out.println("||           SETOR TUNAI          ||");
+                        System.out.println("||________________________________||");
+                        System.out.println("||           1. 100.000           ||");
+                        System.out.println("||           2. 200.000           ||");
+                        System.out.println("||           3. 500.000           ||");
+                        System.out.println("||           4. 1.000.000         ||");
+                        System.out.println("||           5. Batal             ||");
+                        System.out.println("||================================||");
+                        System.out.print("\nPilih Jumlah Setor Tunai : ");
+                        menu = sc.nextInt();
 
-                    if (menu == 1) {
-                        jmlSetor = 100_000;
-                    } else if (menu == 2) {
-                        jmlSetor = 200_000;
-                    } else if (menu == 3) {
-                        jmlSetor = 500_000;
-                    } else if (menu == 4) {
-                        jmlSetor = 1_000_000;
-                    } else if (menu == 5) {
-                        break;
-                    } else {
-                        System.out.println("Menu invalid");
-                        continue;
-                    }
-                    
-                    if ((saldo - 50_000) > jmlTF) {
-                        totalSetoran += jmlSetor;
-                        totalSetoran = saldo + jmlSetor;
-                        System.out.println("Total Transfer saat ini : " + totalSetoran);
-                    } else {
-                        System.out.println("Saldo Anda Kurang !");
-                    }
-                    System.out.print("Apakah anda yakin? (y/n) : ");
-                    konfirmasi = sc.next();
+                        if (menu == 1) {
+                            jmlSetor = 100_000;
+                        } else if (menu == 2) {
+                            jmlSetor = 200_000;
+                        } else if (menu == 3) {
+                            jmlSetor = 500_000;
+                        } else if (menu == 4) {
+                            jmlSetor = 1_000_000;
+                        } else if (menu == 5) {
+                            break;
+                        } else {
+                            System.out.println("Menu invalid");
+                            continue;
+                        }
 
-                    if (konfirmasi.equalsIgnoreCase("y")) {
+                        if ((saldo - 50_000) > jmlTF) {
+                            totalSetoran += jmlSetor;
+                            totalSetoran = saldo + jmlSetor;
+                            System.out.println("Total Transfer saat ini : " + totalSetoran);
+                        } else {
+                            System.out.println("Saldo Anda Kurang !");
+                        }
+                        System.out.print("Apakah anda yakin? (y/n) : ");
+                        konfirmasi = sc.next();
+
+                        if (konfirmasi.equalsIgnoreCase("y")) {
                             admin = 2_000;
                             int totalSetoran2 = totalSetoran + admin;
 
                             if ((saldo - 50_000) > totalTF) {
                                 sisaSaldo = saldo - totalSetoran2;
 
+                                if (konfirmasi.equalsIgnoreCase("y") && (saldo - 50_000) > jmlSetor) {
+                                    totalSetoran = saldo + jmlSetor;
 
-                    if (konfirmasi.equalsIgnoreCase("y") && (saldo - 50_000) > jmlSetor) {
-                        totalSetoran = saldo + jmlSetor;
+                                    // Menampilkan total setoran
+                                    System.out.println("\n===================================");
+                                    System.out.println("        SETOR TUNAI BERHASIL !       ");
+                                    System.out.println("===================================");
+                                    System.out.println("Total Saldo           : " + totalSetoran);
+                                    System.out.println("\n====== Sampai Jumpa Kembali =======");
+                                }
 
-                        // Menampilkan total setoran
-                        System.out.println("\n===================================");
-                        System.out.println("        SETOR TUNAI BERHASIL !       ");
-                        System.out.println("===================================");
-                        System.out.println("Total Saldo           : " + totalSetoran);
-                        System.out.println("\n====== Sampai Jumpa Kembali =======");
+                                System.out.print("\nKembali ke menu utama ? (y/n) : ");
+                                konfirmasi = sc.next();
+
+                                if (konfirmasi.equalsIgnoreCase("y")) {
+                                    break;
+                                } else {
+                                    login = false;
+                                }
+                            }
+                        }
                     }
-
-                    System.out.print("\nKembali ke menu utama ? (y/n) : ");
-                    konfirmasi = sc.next();
-
-                    if (konfirmasi.equalsIgnoreCase("y")) {
-                        break;
-                    } else {
-                        login = false;
-                    }
-                }
-            }
                     break;
 
                 case 4:
