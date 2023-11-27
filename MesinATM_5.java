@@ -28,6 +28,7 @@ public class MesinATM_5 {
                     break;
                 case 3:
                     // Setor Tunai
+                    SetorTunai();
                     break;
                 case 4:
                     // Transfer
@@ -388,5 +389,48 @@ public class MesinATM_5 {
             }
         }
         System.out.println();
+    }
+
+    // Setor Tunai
+    static int MenuSetor() {
+        System.out.println("\n||================================||");
+        System.out.println("||           Menu Transfer        ||");
+        System.out.println("||________________________________||");
+        System.out.println("||          1. 50.000             ||");
+        System.out.println("||          2. 100.000            ||");
+        System.out.println("||          3. Selesai            ||");
+        System.out.println("||================================||");
+        System.out.print("\nPilih Nominal Yang Ingin Anda Setorkan : ");
+        int menu = sc.nextInt();
+        sc.nextLine();
+
+        return menu;
+    }
+
+    static void SetorTunai(){
+        int menu = MenuSetor();
+        int jmlSetor;
+        int saldo = 0, totalSetoran = 0, totalSetoran2 = 0;
+        String konfirmasi;
+        int jenis;
+
+        System.out.print("Masukkan Uang Maksimal 100 Lembar : ");
+        jmlSetor = sc.nextInt();
+
+        if ((saldo - 50_000) > jmlSetor) {
+            totalSetoran += jmlSetor;
+            System.out.println("Total Saldo Anda Saat Ini : " + totalSetoran);
+        } else {
+            System.out.println("Saldo Anda Mencapai Batas Minimum, Silahkan Hubungi Layanan Bank Kami");
+        }
+        
+    }
+
+    static void CetakResiSetoran(){
+        System.out.println("\n===================================");
+        System.out.println("        SETOR TUNAI BERHASIL !       ");
+        System.out.println("===================================");
+        // System.out.println("Total Saldo           : " + totalSetoran2); merah dianyaaa jelek huuu
+        System.out.println("\n====== Sampai Jumpa Kembali =======");
     }
 }
