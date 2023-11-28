@@ -26,6 +26,7 @@ public class MesinATM_5 {
                     break;
                 case 2:
                     // Tarik Tunai
+                    TarikTunai();
                     break;
                 case 3:
                     // Setor Tunai
@@ -462,5 +463,70 @@ public class MesinATM_5 {
         System.out.println("Nama Penerima                     :  " + namaTujuan);
         System.out.println("Jumlah                            : Rp " + jmlSetor);
         System.out.println("\n====== Sampai Jumpa Kembali =======");
+    }
+    // tarik tunai
+    static void TarikTunai() {
+        int saldoAkhir;
+        int jmlTarik = 0;
+
+        
+        System.out.println("\n||================================||");
+        System.out.println("||         TARIK TUNAI            ||");
+        System.out.println("||________________________________||");
+        System.out.println("||           1. 100.000           ||");
+        System.out.println("||           2. 200.000           ||");
+        System.out.println("||           3. 300.000           ||");
+        System.out.println("||           4. 500.000           ||");
+        System.out.println("||           5. 1.000.000         ||");
+        System.out.println("||           6. 2.000.000         ||");
+        System.out.println("||           7. Penarikan lainnya ||");
+        System.out.println("||================================||");
+        System.out.println("Pilih menu: ");
+        int menu = sc.nextInt();
+
+        if (menu == 1) {
+            jmlTarik = 100_000;
+        } else if (menu == 2) {
+            jmlTarik = 200_000;
+        } else if (menu == 3) {
+            jmlTarik = 300_000;
+        } else if (menu == 4) {
+            jmlTarik = 500_000;
+        } else if (menu == 5) {
+            jmlTarik = 1_000_000;
+        } else if (menu == 6) {
+            jmlTarik = 2_000_000;
+        } else if (menu == 7) {
+            System.out.print("Masukkan jumlah penarikan: Rp ");
+            jmlTarik = sc.nextInt();
+
+            String confirm = "Benar";
+            if (confirm.equalsIgnoreCase("Benar")) {
+                System.out.print("Benar / Salah : ");
+                confirm = sc.nextLine();
+                sc.nextLine();
+            
+            }
+        
+            
+    }
+        int saldo = Integer.parseInt(nasabah[index][2]);
+        saldoAkhir = saldo - jmlTarik;
+
+        System.out.println("\n===================================");
+        System.out.println("       PENARIKAN TUNAI BERHASIL !     ");
+        System.out.println("\n===================================");
+
+        CetakResiTarikTunai(saldoAkhir);
+
+        
+    }
+    static void CetakResiTarikTunai(int saldoAkhir) {
+        System.out.println("\n===================================");
+        System.out.println("       PENARIKAN TUNAI BERHASIL !     ");
+        System.out.println("===================================");
+        System.out.println("Sisa Saldo           : Rp " + saldoAkhir);
+        System.out.println("\n===================================");
+        
     }
 }
