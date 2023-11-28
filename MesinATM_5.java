@@ -466,7 +466,7 @@ public class MesinATM_5 {
     }
     // tarik tunai
     static void TarikTunai() {
-        int saldoAkhir;
+        int saldoAkhir = 0;
         int jmlTarik = 0;
 
         
@@ -497,36 +497,50 @@ public class MesinATM_5 {
         } else if (menu == 6) {
             jmlTarik = 2_000_000;
         } else if (menu == 7) {
-            System.out.print("Masukkan jumlah penarikan: Rp ");
-            jmlTarik = sc.nextInt();
-
-            String confirm = "Benar";
-            if (confirm.equalsIgnoreCase("Benar")) {
-                System.out.print("Benar / Salah : ");
-                confirm = sc.nextLine();
+            do {
+                System.out.print("Masukkan jumalah penarikan: Rp ");
+                jmlTarik = sc.nextInt();
                 sc.nextLine();
-            
-            }
-        
+
+                System.out.print("Benar / Salah : ");
+                String confirm = sc.nextLine();
+                if (confirm.equalsIgnoreCase("Benar")) {
+                    break;
+                }
+            } while (true);
             
     }
         int saldo = Integer.parseInt(nasabah[index][2]);
-        saldoAkhir = saldo - jmlTarik;
-
+        if (jmlTarik > saldo) {
+            System.out.println("Saldo Anda tidak mencukupi!");
+        } else {
+            saldoAkhir = saldo - jmlTarik;
+            nasabah[index][2] = String.valueOf(saldoAkhir);
         System.out.println("\n===================================");
-        System.out.println("       PENARIKAN TUNAI BERHASIL !     ");
+        System.out.println("     PENARIKAN TUNAI BERHASIL !     ");
         System.out.println("\n===================================");
+        }
+        
+        System.out.print("Cetak resi? (ya/tidak): ");
+        sc.nextLine();
+        String confirm = sc.nextLine();
 
-        CetakResiTarikTunai(saldoAkhir);
+
+        if (confirm.equalsIgnoreCase("ya")) {
+            CetakResiTarikTunai(saldoAkhir);
+        } else {
+            System.out.println("Terima Kasih!");
+        }
+        
 
         
     }
     static void CetakResiTarikTunai(int saldoAkhir) {
-        System.out.println("\n===================================");
-        System.out.println("       PENARIKAN TUNAI BERHASIL !     ");
-        System.out.println("===================================");
-        System.out.println("Sisa Saldo           : Rp " + saldoAkhir);
-        System.out.println("\n===================================");
+        System.out.println("\n||===================================||");
+        System.out.println("||    Transaksi : Penarikan Tunai    ||");
+        System.out.println("||===================================||");
+        System.out.println("||Sisa Saldo           : Rp " + saldoAkhir + " ||");
+        System.out.println("||===================================||");
         
     }
 }
