@@ -1,3 +1,4 @@
+import java.net.NoRouteToHostException;
 import java.util.Scanner;
 
 public class MesinATM_5 {
@@ -392,45 +393,74 @@ public class MesinATM_5 {
     }
 
     // Setor Tunai
-    static int MenuSetor() {
-        System.out.println("\n||================================||");
-        System.out.println("||           Menu Transfer        ||");
-        System.out.println("||________________________________||");
-        System.out.println("||          1. 50.000             ||");
-        System.out.println("||          2. 100.000            ||");
-        System.out.println("||          3. Selesai            ||");
-        System.out.println("||================================||");
-        System.out.print("\nPilih Nominal Yang Ingin Anda Setorkan : ");
+    static void SetorTunai(){
+        int jmlSetor;
+        int totalSetoran = 0, totalSetoran2 = 0, saldoAkhir = 0, saldoAkhirLain = 0;
+        String rekSetor = null, namaTujuan = null, Banktujuan = null;
+        int saldoSendiri = Integer.parseInt(nasabah[index][2]);
+        
+        System.out.print("Masukkan Nominal Uang Yang Ingin Anda Setorkan : ");
+        jmlSetor = sc.nextInt();
+        sc.nextLine();
+
+        System.out.println("\n||==========================================||");
+        System.out.println("||           Rekening Tujuan                ||");
+        System.out.println("||__________________________________________||");
+        System.out.println("||          1. Rekening Sendiri             ||");
+        System.out.println("||          2. Rekening Lainnya             ||");
+        System.out.println("||==========================================||");
+        System.out.print("\nPilih Rekening Tujuan : ");
         int menu = sc.nextInt();
         sc.nextLine();
 
-        return menu;
-    }
-
-    static void SetorTunai(){
-        int menu = MenuSetor();
-        int jmlSetor;
-        int saldo = 0, totalSetoran = 0, totalSetoran2 = 0;
-        String konfirmasi;
-        int jenis;
-
-        System.out.print("Masukkan Uang Maksimal 100 Lembar : ");
-        jmlSetor = sc.nextInt();
-
-        if ((saldo - 50_000) > jmlSetor) {
-            totalSetoran += jmlSetor;
-            System.out.println("Total Saldo Anda Saat Ini : " + totalSetoran);
-        } else {
-            System.out.println("Saldo Anda Mencapai Batas Minimum, Silahkan Hubungi Layanan Bank Kami");
+        if (menu == 1) { rekSetor = nasabah[index][0];
+            saldoAkhir = saldoSendiri + jmlSetor;
+            nasabah[index][2] = Integer.toString(saldoAkhir);
+            CetakResiSetoran(jmlSetor, saldoAkhir);
+        } else if (menu == 2){
+            System.out.println("Masukkan Rekening Tujuan : ");
+            rekSetor = sc.nextLine(); 
+            
+            for (int i = 0; i < nasabah.length; i++) {
+                if (rekSetor.equals(nasabah[i][0])) { 
+                    saldoAkhirLain = Integer.parseInt(nasabah[i][2]);
+                    Banktujuan = nasabah[i][4]; 
+                    namaTujuan = nasabah[i][3];
+                    saldoAkhirLain += jmlSetor;
+                    nasabah[i][2] = String.valueOf(saldoAkhirLain);
+                }
+            }
+            if (Banktujuan == "BTS") {
+                CetakResiSetoranLain(namaTujuan, rekSetor, jmlSetor);
+            } else{
+                System.out.println("Rekening Tidak Valid");
+            }
         }
-        
+        String riwayatSetor =
+                "\nNo Rekening               : " + rekSetor +
+                "\nJumlah Setoran            : Rp " + jmlSetor;
+        riwayat[index][counter] = riwayatSetor;
+        counter++;
     }
 
-    static void CetakResiSetoran(){
+    static void CetakResiSetoran(int jmlSetor, int saldoAkhir){
+
         System.out.println("\n===================================");
         System.out.println("        SETOR TUNAI BERHASIL !       ");
-        System.out.println("===================================");
-        // System.out.println("Total Saldo           : " + totalSetoran2); merah dianyaaa jelek huuu
+        System.out.println("=====================================");
+        System.out.println("Jumlah                  : Rp " + jmlSetor);
+        System.out.println("Total Saldo             : Rp " + saldoAkhir);
+        System.out.println("\n====== Sampai Jumpa Kembali =======");
+    }
+
+    static void CetakResiSetoranLain(String namaTujuan, String rekTujuan, int jmlSetor){
+
+        System.out.println("\n==============================================");
+        System.out.println("             SETOR TUNAI BERHASIL !             ");
+        System.out.println("================================================");
+        System.out.println("No Rekening                       :   " + rekTujuan);
+        System.out.println("Nama Penerima                     :  " + namaTujuan);
+        System.out.println("Jumlah                            : Rp " + jmlSetor);
         System.out.println("\n====== Sampai Jumpa Kembali =======");
     }
 }
