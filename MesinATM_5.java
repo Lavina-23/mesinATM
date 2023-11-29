@@ -29,7 +29,7 @@ public class MesinATM_5 {
                     break;
                 case 4:
                     // Transfer
-                    Transfer();
+                    MenuTransfer();
                     break;
                 case 5:
                     History();
@@ -94,7 +94,7 @@ public class MesinATM_5 {
             String noRek = sc.nextLine();
             System.out.print("Masukkan PIN anda                  : ");
             String pin = sc.nextLine();
-            System.out.println("\n---------------------------------");
+            System.out.println("---------------------------------");
 
             for (int i = 0; i < nasabah.length; i++) {
                 index = i;
@@ -109,11 +109,11 @@ public class MesinATM_5 {
             }
 
             if (!truePIN && !trueRek) {
-                System.out.print("Nomor Rekening dan PIN Anda Salah !");
+                System.out.println("Nomor Rekening dan PIN Anda Salah !");
             } else if (!truePIN) {
-                System.out.print("PIN Anda Salah !");
+                System.out.println("PIN Anda Salah !");
             } else if (!trueRek) {
-                System.out.print("Nomor Rekening Anda Salah !");
+                System.out.println("Nomor Rekening Anda Salah !");
             }
         } while (session == null);
         return session;
@@ -157,13 +157,7 @@ public class MesinATM_5 {
 
     }
 
-    static void Transfer() {
-        int saldoPengirim = Integer.parseInt(nasabah[index][2]);
-        int saldoTujuan = 0, jmlTF = 0, totalTF = 0;
-        boolean rekValid = false;
-        String jenis, rekTujuan = null, namaTujuan = null;
-        String bankTujuan = null;
-
+    static void MenuTransfer() {
         System.out.println("\n||================================||");
         System.out.println("||           Menu Transfer        ||");
         System.out.println("||________________________________||");
@@ -176,110 +170,89 @@ public class MesinATM_5 {
         int menu = sc.nextInt();
         sc.nextLine();
 
-        switch (menu) {
-            case 1:
-                do {
-                    System.out.print("Masukkan Nomor Rekening Tujuan : ");
-                    rekTujuan = sc.nextLine();
+        int admin;
+        String bankTujuan = null;
+        if (menu == 1) {
+            admin = 6_500;
+            bankTujuan = "BTS";
+            Transfer(admin, bankTujuan);
+        } else if (menu == 2) {
+            admin = 7_500;
+            System.out.println("\n||================================||");
+            System.out.println("||            Bank Tujuan         ||");
+            System.out.println("||________________________________||");
+            System.out.println("||          1. BRI                ||");
+            System.out.println("||          2. BNI                ||");
+            System.out.println("||          3. BCA                ||");
+            System.out.println("||          4. Kembali            ||");
+            System.out.println("||================================||");
+            System.out.print("\nPilih Menu Transfer : ");
+            int menuBank = sc.nextInt();
+            sc.nextLine();
 
-                    for (int j = 0; j < nasabah.length; j++) {
-                        if (rekTujuan.equals(nasabah[j][0]) && !rekTujuan.equals(nasabah[index][2])) {
-                            saldoTujuan = Integer.parseInt(nasabah[j][2]);
-                            indexTujuan = j;
-                            rekValid = true;
-                            break;
-                        }
-                    }
+            if (menuBank == 1) {
+                bankTujuan = "BRI";
+            } else if (menuBank == 2) {
+                bankTujuan = "BNI";
+            } else if (menuBank == 3) {
+                bankTujuan = "BCA";
+            } else if (menuBank == 4) {
+                MenuUtama();
+            } else {
+                System.out.println("Menu Tidak Valid !");
+            }
 
-                    if (!rekValid) {
-                        System.out.println("Nomor Rekening Tidak Valid !");
-                    }
-                } while (!rekValid);
+            Transfer(admin, bankTujuan);
+        } else if (menu == 3) {
+            VirtualAkun();
+        } else {
+            System.out.println("Menu Tidak Valid !");
+        }
 
-                System.out.print("Masukkan Nominal Transfer : ");
-                jmlTF = sc.nextInt();
-                sc.nextLine();
+    }
 
-                if (jmlTF <= (saldoPengirim - 50_000)) {
-                    int admin = 6_500;
-                    totalTF = jmlTF + admin;
-                    jenis = "Transfer Sesama Bank";
-                    bankTujuan = nasabah[indexTujuan][4];
-                    namaTujuan = nasabah[indexTujuan][3];
-                    CetakResiTransfer(jenis, rekTujuan, bankTujuan, namaTujuan, saldoPengirim, saldoTujuan, jmlTF,
-                            totalTF, admin);
-                } else {
-                    System.out.print("Saldo Anda Kurang !");
-                }
-                break;
-            case 2:
-                System.out.println("\n||================================||");
-                System.out.println("||            Bank Tujuan         ||");
-                System.out.println("||________________________________||");
-                System.out.println("||          1. BRI                ||");
-                System.out.println("||          2. BNI                ||");
-                System.out.println("||          3. BCA                ||");
-                System.out.println("||          4. Kembali            ||");
-                System.out.println("||================================||");
-                System.out.print("\nPilih Menu Transfer : ");
-                int menuBank = sc.nextInt();
-                sc.nextLine();
+    static void Transfer(int admin, String bankTujuan) {
+        int saldoPengirim = Integer.parseInt(nasabah[index][2]);
+        int saldoTujuan, jmlTF, totalTF;
+        boolean rekValid = false;
+        String rekTujuan = null, namaTujuan = null, jenis;
 
-                if (menuBank == 1) {
-                    bankTujuan = "BRI";
-                } else if (menuBank == 2) {
-                    bankTujuan = "BNI";
-                } else if (menuBank == 3) {
-                    bankTujuan = "BCA";
-                } else if (menuBank == 4) {
+        do {
+            System.out.print("Masukkan Nomor Rekening Tujuan : ");
+            rekTujuan = sc.nextLine();
+
+            for (int j = 0; j < nasabah.length; j++) {
+                if (rekTujuan.equals(nasabah[j][0]) && !rekTujuan.equals(nasabah[index][2])
+                        && bankTujuan.equals(nasabah[j][4])) {
+                    indexTujuan = j;
+                    rekValid = true;
                     break;
-                } else {
-                    System.out.println("Menu Tidak Valid !");
                 }
+            }
 
-                do {
-                    System.out.print("Masukkan Nomor Rekening Tujuan : ");
-                    rekTujuan = sc.nextLine();
+            if (!rekValid) {
+                System.out.println("Nomor Rekening Tidak Valid !");
+            }
+        } while (!rekValid);
 
-                    for (int j = 0; j < nasabah.length; j++) {
-                        if (rekTujuan.equals(nasabah[j][0]) && !rekTujuan.equals(nasabah[index][2])
-                                && bankTujuan.equals(nasabah[j][4])) {
-                            saldoTujuan = Integer.parseInt(nasabah[j][2]);
-                            indexTujuan = j;
-                            rekValid = true;
-                            break;
-                        }
-                    }
+        System.out.print("Masukkan Nominal Transfer : ");
+        jmlTF = sc.nextInt();
+        sc.nextLine();
 
-                    if (!rekValid) {
-                        System.out.println("Nomor Rekening Tidak Valid !");
-                    }
-                } while (!rekValid);
-
-                System.out.print("Masukkan Nominal Transfer : ");
-                jmlTF = sc.nextInt();
-                sc.nextLine();
-
-                if (jmlTF <= (saldoPengirim - 50_000)) {
-                    int admin = 7_500;
-                    totalTF = jmlTF + admin;
-                    jenis = "Transfer Beda Bank";
-                    bankTujuan = nasabah[indexTujuan][4];
-                    namaTujuan = nasabah[indexTujuan][3];
-                    CetakResiTransfer(jenis, rekTujuan, bankTujuan, namaTujuan, saldoPengirim, 0, jmlTF, totalTF,
-                            admin);
-                } else {
-                    System.out.print("Saldo Anda Kurang !");
-                }
-                break;
-            case 3:
-                VirtualAkun();
-                break;
-            case 4:
-                break;
-            default:
-                System.out.print("Menu Tidak Valid !");
-                break;
+        if (jmlTF > 10_000) {
+            if (jmlTF <= (saldoPengirim - 50_000)) {
+                totalTF = jmlTF + admin;
+                jenis = "Transfer Sesama Bank";
+                saldoTujuan = Integer.parseInt(nasabah[indexTujuan][2]);
+                namaTujuan = nasabah[indexTujuan][3];
+                bankTujuan = nasabah[indexTujuan][4];
+                CetakResiTransfer(jenis, rekTujuan, bankTujuan, namaTujuan, saldoPengirim, saldoTujuan, jmlTF,
+                        totalTF, admin);
+            } else {
+                System.out.print("Saldo Anda Kurang !");
+            }
+        } else {
+            System.out.println("Minimal Transfer Rp 10.000");
         }
     }
 
@@ -297,7 +270,6 @@ public class MesinATM_5 {
                     saldoPengirim -= totalTF;
                     saldoTujuan += jmlTF;
                     nasabah[indexTujuan][2] = String.valueOf(saldoTujuan);
-
                     nasabah[index][2] = String.valueOf(saldoPengirim);
 
                     String riwayatTF = "\nJenis Transaksi       : " + jenis +
