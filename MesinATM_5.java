@@ -492,8 +492,9 @@ public class MesinATM_5 {
 
     // tarik tunai
     static void TarikTunai() {
-        int saldoAkhir;
+        int saldo = Integer.parseInt(nasabah[index][2]);
         int jmlTarik = 0;
+        int saldoAkhir;
 
         System.out.println("\n||================================||");
         System.out.println("||         TARIK TUNAI            ||");
@@ -530,21 +531,14 @@ public class MesinATM_5 {
                 jmlTarik = sc.nextInt();
                 sc.nextLine();
 
-                if (jmlTarik > 100_000) {
+                if (jmlTarik >= 100_000) {
                     if (jmlTarik <= 7_000_000) {
-                        String confirm = "Benar";
+                        isTarik = true;
+                        System.out.print("Benar / Salah : ");
+                        String confirm = sc.nextLine();
+
                         if (confirm.equalsIgnoreCase("Benar")) {
-                            System.out.print("Benar / Salah : ");
-                            confirm = sc.nextLine();
-
-                            isTarik = true;
-                            int saldo = Integer.parseInt(nasabah[index][2]);
-                            saldoAkhir = saldo - jmlTarik;
-                            nasabah[index][2] = String.valueOf(saldoAkhir);
-                            CetakResiTarikTunai(saldoAkhir);
-
-                            System.out.println();
-
+                            continue;
                         }
                     } else {
                         System.out.println("\n===================================");
@@ -561,8 +555,8 @@ public class MesinATM_5 {
 
         }
 
-        int saldo = Integer.parseInt(nasabah[index][2]);
         saldoAkhir = saldo - jmlTarik;
+        nasabah[index][2] = String.valueOf(saldoAkhir);
         CetakResiTarikTunai(saldoAkhir);
 
         String riwayatTarik = "\nTarik Tunai" +
@@ -571,7 +565,6 @@ public class MesinATM_5 {
 
         riwayat[index][counter] = riwayatTarik;
         counter++;
-        System.out.println();
 
     }
 
@@ -585,6 +578,7 @@ public class MesinATM_5 {
             System.out.print("\nTransaksi Lain ? (y/n) : ");
             String konfirmasi = sc.nextLine();
 
+            System.out.println();
             if (konfirmasi.equalsIgnoreCase("y")) {
                 break;
             } else {
