@@ -235,25 +235,32 @@ public class MesinATM_5 {
             }
         } while (!rekValid);
 
-        System.out.print("Masukkan Nominal Transfer : ");
-        jmlTF = sc.nextInt();
-        sc.nextLine();
+        boolean isTransfer = false;
+        do {
+            System.out.print("Masukkan Nominal Transfer : ");
+            jmlTF = sc.nextInt();
+            sc.nextLine();
 
-        if (jmlTF > 10_000) {
-            if (jmlTF <= (saldoPengirim - 50_000)) {
-                totalTF = jmlTF + admin;
-                jenis = "Transfer Sesama Bank";
-                saldoTujuan = Integer.parseInt(nasabah[indexTujuan][2]);
-                namaTujuan = nasabah[indexTujuan][3];
-                bankTujuan = nasabah[indexTujuan][4];
-                CetakResiTransfer(jenis, rekTujuan, bankTujuan, namaTujuan, saldoPengirim, saldoTujuan, jmlTF,
-                        totalTF, admin);
+            if (jmlTF >= 10_000 && jmlTF <= 25_000_000) {
+                isTransfer = true;
+                if (jmlTF <= (saldoPengirim - 50_000)) {
+                    totalTF = jmlTF + admin;
+                    jenis = "Transfer Sesama Bank";
+                    saldoTujuan = Integer.parseInt(nasabah[indexTujuan][2]);
+                    namaTujuan = nasabah[indexTujuan][3];
+                    bankTujuan = nasabah[indexTujuan][4];
+                    CetakResiTransfer(jenis, rekTujuan, bankTujuan, namaTujuan, saldoPengirim, saldoTujuan, jmlTF,
+                            totalTF, admin);
+                } else {
+                    System.out.print("Saldo Anda Kurang !");
+                }
             } else {
-                System.out.print("Saldo Anda Kurang !");
+                System.out.println("\n===================================");
+                System.out.println("Minimal Transfer Rp 10.000 dan \nMaksimal Rp 25.000.000");
+                System.out.println("====================================\n");
             }
-        } else {
-            System.out.println("Minimal Transfer Rp 10.000");
-        }
+        } while (!isTransfer);
+
     }
 
     static void CetakResiTransfer(String jenis, String rekTujuan, String bankTujuan, String namaTujuan,
@@ -384,7 +391,6 @@ public class MesinATM_5 {
             System.out.println("\n===================================");
             System.out.println("          Riwayat Transaksi        ");
             System.out.println("===================================");
-
             for (int i = 0; i < riwayat.length; i++) {
                 if (riwayat[i] != null) {
                     for (String history : riwayat[i]) {
@@ -417,44 +423,55 @@ public class MesinATM_5 {
         String rekSetor = null, namaTujuan = null, Banktujuan = null;
         int saldoSendiri = Integer.parseInt(nasabah[index][2]);
 
-        System.out.print("Masukkan Nominal Uang Yang Ingin Anda Setorkan : ");
-        jmlSetor = sc.nextInt();
-        sc.nextLine();
+        boolean isSetor = false;
+        do {
+            System.out.print("Masukkan Nominal Uang Yang Ingin Anda Setorkan : ");
+            jmlSetor = sc.nextInt();
+            sc.nextLine();
 
-        System.out.println("\n||==========================================||");
-        System.out.println("||           Rekening Tujuan                ||");
-        System.out.println("||__________________________________________||");
-        System.out.println("||          1. Rekening Sendiri             ||");
-        System.out.println("||          2. Rekening Lainnya             ||");
-        System.out.println("||==========================================||");
-        System.out.print("\nPilih Rekening Tujuan : ");
-        int menu = sc.nextInt();
-        sc.nextLine();
+            if (jmlSetor <= 15_000_000 && jmlSetor >= 10_000) {
+                isSetor = true;
+                System.out.println("\n||==========================================||");
+                System.out.println("||           Rekening Tujuan                ||");
+                System.out.println("||__________________________________________||");
+                System.out.println("||          1. Rekening Sendiri             ||");
+                System.out.println("||          2. Rekening Lainnya             ||");
+                System.out.println("||==========================================||");
+                System.out.print("\nPilih Rekening Tujuan : ");
+                int menu = sc.nextInt();
+                sc.nextLine();
 
-        if (menu == 1) {
-            rekSetor = nasabah[index][0];
-            saldoAkhir = saldoSendiri + jmlSetor;
-            nasabah[index][2] = Integer.toString(saldoAkhir);
-            CetakResiSetoran(jmlSetor, saldoAkhir);
-        } else if (menu == 2) {
-            System.out.println("Masukkan Rekening Tujuan : ");
-            rekSetor = sc.nextLine();
+                if (menu == 1) {
+                    rekSetor = nasabah[index][0];
+                    saldoAkhir = saldoSendiri + jmlSetor;
+                    nasabah[index][2] = Integer.toString(saldoAkhir);
+                    CetakResiSetoran(jmlSetor, saldoAkhir);
+                } else if (menu == 2) {
+                    System.out.println("Masukkan Rekening Tujuan : ");
+                    rekSetor = sc.nextLine();
 
-            for (int i = 0; i < nasabah.length; i++) {
-                if (rekSetor.equals(nasabah[i][0])) {
-                    saldoAkhirLain = Integer.parseInt(nasabah[i][2]);
-                    Banktujuan = nasabah[i][4];
-                    namaTujuan = nasabah[i][3];
-                    saldoAkhirLain += jmlSetor;
-                    nasabah[i][2] = String.valueOf(saldoAkhirLain);
+                    for (int i = 0; i < nasabah.length; i++) {
+                        if (rekSetor.equals(nasabah[i][0])) {
+                            saldoAkhirLain = Integer.parseInt(nasabah[i][2]);
+                            Banktujuan = nasabah[i][4];
+                            namaTujuan = nasabah[i][3];
+                            saldoAkhirLain += jmlSetor;
+                            nasabah[i][2] = String.valueOf(saldoAkhirLain);
+                        }
+                    }
+                    if (Banktujuan == "BTS") {
+                        CetakResiSetoranLain(namaTujuan, rekSetor, jmlSetor);
+                    } else {
+                        System.out.println("Rekening Tidak Valid");
+                    }
                 }
-            }
-            if (Banktujuan == "BTS") {
-                CetakResiSetoranLain(namaTujuan, rekSetor, jmlSetor);
             } else {
-                System.out.println("Rekening Tidak Valid");
+                System.out.println("\n===================================");
+                System.out.println("Jumlah Setor Minimal Rp 10.000 dan \nMaksimal Rp 15.000.000");
+                System.out.println("====================================\n");
             }
-        }
+        } while (!isSetor);
+
         String riwayatSetor = "\nNo Rekening               : " + rekSetor +
                 "\nJumlah Setoran            : Rp " + jmlSetor;
         riwayat[index][counter] = riwayatSetor;
@@ -535,23 +552,43 @@ public class MesinATM_5 {
         } else if (menu == 6) {
             jmlTarik = 2_000_000;
         } else if (menu == 7) {
-            System.out.print("Masukkan jumlah penarikan: Rp ");
-            jmlTarik = sc.nextInt();
-            sc.nextLine();
 
-            String confirm = "Benar";
-            if (confirm.equalsIgnoreCase("Benar")) {
-                System.out.print("Benar / Salah : ");
-                confirm = sc.nextLine();
+            boolean isTarik = false;
+            do {
+                System.out.print("Masukkan jumlah penarikan: Rp ");
+                jmlTarik = sc.nextInt();
+                sc.nextLine();
 
-            }
+                if (jmlTarik > 100_000) {
+                    if (jmlTarik <= 7_000_000) {
+                        String confirm = "Benar";
+                        if (confirm.equalsIgnoreCase("Benar")) {
+                            System.out.print("Benar / Salah : ");
+                            confirm = sc.nextLine();
+
+                            isTarik = true;
+                            int saldo = Integer.parseInt(nasabah[index][2]);
+                            saldoAkhir = saldo - jmlTarik;
+                            nasabah[index][2] = String.valueOf(saldoAkhir);
+                            CetakResiTarikTunai(saldoAkhir);
+
+                            System.out.println();
+
+                        }
+                    } else {
+                        System.out.println("\n===================================");
+                        System.out.println("Maksimal Tarik Tunai Rp 7.000.000");
+                        System.out.println("====================================\n");
+                    }
+                } else {
+                    System.out.println("\n===================================");
+                    System.out.println("Minimal Tarik Tunai Rp 100.000");
+                    System.out.println("====================================\n");
+                }
+
+            } while (!isTarik);
+
         }
-
-        int saldo = Integer.parseInt(nasabah[index][2]);
-        saldoAkhir = saldo - jmlTarik;
-        CetakResiTarikTunai(saldoAkhir);
-
-        System.out.println();
 
     }
 
