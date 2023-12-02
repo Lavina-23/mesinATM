@@ -32,12 +32,15 @@ public class MesinATM_5 {
                     MenuTransfer();
                     break;
                 case 5:
+                    // Riwayat
                     History();
                     break;
                 case 6:
+                    // Masuk
                     Login();
                     break;
                 case 7:
+                    // Keluar
                     session = null;
                     break;
                 default:
@@ -213,9 +216,9 @@ public class MesinATM_5 {
 
     static void Transfer(int admin, String bankTujuan) {
         int saldoPengirim = Integer.parseInt(nasabah[index][2]);
-        int saldoTujuan, jmlTF, totalTF;
+        int saldoTujuan = 0, jmlTF = 0, totalTF = 0;
         boolean rekValid = false;
-        String rekTujuan = null, namaTujuan = null, jenis;
+        String rekTujuan = null, namaTujuan = null, jenis = null;
 
         do {
             System.out.print("Masukkan Nomor Rekening Tujuan : ");
@@ -269,42 +272,36 @@ public class MesinATM_5 {
         String konfirmasi = "n";
 
         do {
-            System.out.print("Apakah Anda Yakin ? (y/n) : ");
-            konfirmasi = sc.nextLine();
+            if (saldoPengirim > 0) {
+                saldoPengirim -= totalTF;
+                saldoTujuan += jmlTF;
+                nasabah[indexTujuan][2] = String.valueOf(saldoTujuan);
+                nasabah[index][2] = String.valueOf(saldoPengirim);
 
-            if (konfirmasi.equalsIgnoreCase("y")) {
-                if (saldoPengirim > 0) {
-                    saldoPengirim -= totalTF;
-                    saldoTujuan += jmlTF;
-                    nasabah[indexTujuan][2] = String.valueOf(saldoTujuan);
-                    nasabah[index][2] = String.valueOf(saldoPengirim);
+                System.out.println("\n===================================");
+                System.out.println("            ATM BTS            ");
+                System.out.println("===================================");
+                System.out.println("\nTransfer");
+                System.out.println("Ke Bank             : " + bankTujuan);
+                System.out.println("Ke Rekening         : " + rekTujuan);
+                System.out.println("Nama                : " + namaTujuan);
+                System.out.printf("Jumlah              : Rp %s\n", jmlTF);
+                System.out.println("\n========= Terima Kasih !  ==========");
 
-                    String riwayatTF = "\nJenis Transaksi       : " + jenis +
-                            "\nBank Tujuan           : " + bankTujuan +
-                            "\nNomor Rekening Tujuan : " + rekTujuan +
-                            "\nNama                  : " + namaTujuan +
-                            "\nTotal Transfer        : Rp " + totalTF +
-                            "\nSisa Saldo            : Rp " + saldoPengirim;
+                String riwayatTF = "\nTransfer" +
+                        "\nJenis Transaksi       : " + jenis +
+                        "\nBank Tujuan           : " + bankTujuan +
+                        "\nNomor Rekening Tujuan : " + rekTujuan +
+                        "\nNama                  : " + namaTujuan +
+                        "\nTotal Transfer        : Rp " + totalTF +
+                        "\nSisa Saldo            : Rp " + saldoPengirim;
 
-                    riwayat[index][counter] = riwayatTF;
-                    counter++;
+                riwayat[index][counter] = riwayatTF;
+                counter++;
 
-                    System.out.println("\n===================================");
-                    System.out.println("            ATM BTS            ");
-                    System.out.println("===================================");
-                    System.out.println("\nTransfer");
-                    System.out.println("Ke Bank             : " + bankTujuan);
-                    System.out.println("Ke Rekening         : " + rekTujuan);
-                    System.out.println("Nama                : " + namaTujuan);
-                    System.out.printf("Jumlah              : Rp %s\n", jmlTF);
-                    System.out.println("\n========= Terima Kasih !  ==========");
-                } else {
-                    System.out.print("Saldo Anda Kurang !");
-                }
             } else {
-                System.out.print("Transfer Dibatalkan");
+                System.out.print("Saldo Anda Kurang !");
             }
-
             System.out.print("\nTransaksi Lain ? (y/n) : ");
             konfirmasi = sc.nextLine();
 
@@ -376,7 +373,8 @@ public class MesinATM_5 {
             break;
         } while (!vaValid);
 
-        String riwayatVA = "\nJenis Transaksi       : Pembayaran Virtual Akun" +
+        String riwayatVA = "Transfer" +
+                "\nJenis Transaksi      : Virtual Akun" +
                 "\nNomor VA             : " + noVA +
                 "\nPembayaran           : " + jenis +
                 "\nTunggakan            : Rp " + jmlTagihan +
@@ -386,41 +384,10 @@ public class MesinATM_5 {
         counter++;
     }
 
-    static void History() {
-        do {
-            System.out.println("\n===================================");
-            System.out.println("          Riwayat Transaksi        ");
-            System.out.println("===================================");
-            for (int i = 0; i < riwayat.length; i++) {
-                if (riwayat[i] != null) {
-                    for (String history : riwayat[i]) {
-                        if (history != null) {
-                            System.out.println(history);
-                            System.out.println("===================================");
-                        }
-                    }
-                }
-            }
-            System.out.println();
-
-            System.out.print("Transaksi Lain ? (y/n) : ");
-            String konfirmasi = sc.nextLine();
-
-            if (konfirmasi.equalsIgnoreCase("y")) {
-                break;
-            } else {
-                Login();
-            }
-            break;
-        } while (true);
-
-    }
-
-    // Setor Tunai
     static void SetorTunai() {
         int jmlSetor;
-        int totalSetoran = 0, totalSetoran2 = 0, saldoAkhir = 0, saldoAkhirLain = 0;
-        String rekSetor = null, namaTujuan = null, Banktujuan = null;
+        int saldoAkhir = 0, saldoAkhirLain = 0;
+        String rekSetor = null, namaTujuan = null, Banktujuan = null, riwayatSetor = null;
         int saldoSendiri = Integer.parseInt(nasabah[index][2]);
 
         boolean isSetor = false;
@@ -445,6 +412,7 @@ public class MesinATM_5 {
                     rekSetor = nasabah[index][0];
                     saldoAkhir = saldoSendiri + jmlSetor;
                     nasabah[index][2] = Integer.toString(saldoAkhir);
+
                     CetakResiSetoran(jmlSetor, saldoAkhir);
                 } else if (menu == 2) {
                     System.out.println("Masukkan Rekening Tujuan : ");
@@ -464,6 +432,7 @@ public class MesinATM_5 {
                     } else {
                         System.out.println("Rekening Tidak Valid");
                     }
+
                 }
             } else {
                 System.out.println("\n===================================");
@@ -472,8 +441,10 @@ public class MesinATM_5 {
             }
         } while (!isSetor);
 
-        String riwayatSetor = "\nNo Rekening               : " + rekSetor +
-                "\nJumlah Setoran            : Rp " + jmlSetor;
+        riwayatSetor = "Setor Tunai" +
+                "\nNo Rekening       : " + rekSetor +
+                "\nJumlah Setoran    : Rp " + jmlSetor +
+                "\nSaldo             : Rp " + saldoAkhir;
         riwayat[index][counter] = riwayatSetor;
         counter++;
     }
@@ -590,6 +561,18 @@ public class MesinATM_5 {
 
         }
 
+        int saldo = Integer.parseInt(nasabah[index][2]);
+        saldoAkhir = saldo - jmlTarik;
+        CetakResiTarikTunai(saldoAkhir);
+
+        String riwayatTarik = "\nTarik Tunai" +
+                "\nJumlah Tarik : " + jmlTarik +
+                "\nSaldo        : " + saldoAkhir;
+
+        riwayat[index][counter] = riwayatTarik;
+        counter++;
+        System.out.println();
+
     }
 
     static void CetakResiTarikTunai(int saldoAkhir) {
@@ -608,5 +591,36 @@ public class MesinATM_5 {
                 Login();
             }
         } while (true);
+    }
+
+    static void History() {
+        do {
+            System.out.println("\n===================================");
+            System.out.println("          Riwayat Transaksi        ");
+            System.out.println("===================================");
+
+            for (int i = 0; i < riwayat.length; i++) {
+                if (riwayat[i] != null) {
+                    for (String history : riwayat[i]) {
+                        if (history != null) {
+                            System.out.println(history);
+                            System.out.println("\n===================================");
+                        }
+                    }
+                }
+            }
+            System.out.println();
+
+            System.out.print("Transaksi Lain ? (y/n) : ");
+            String konfirmasi = sc.nextLine();
+
+            if (konfirmasi.equalsIgnoreCase("y")) {
+                break;
+            } else {
+                Login();
+            }
+            break;
+        } while (true);
+
     }
 }
