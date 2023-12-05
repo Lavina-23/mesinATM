@@ -396,7 +396,8 @@ public class MesinATM_5 {
             jmlSetor = sc.nextInt();
             sc.nextLine();
 
-            if (jmlSetor <= 15_000_000 && jmlSetor >= 10_000) {
+            if (jmlSetor % 50_000 == 0) {
+                if (jmlSetor <= 15_000_000 && jmlSetor >= 50_000) {
                 isSetor = true;
                 System.out.println("\n||==========================================||");
                 System.out.println("||           Rekening Tujuan                ||");
@@ -436,7 +437,12 @@ public class MesinATM_5 {
                 }
             } else {
                 System.out.println("\n===================================");
-                System.out.println("Jumlah Setor Minimal Rp 10.000 dan \nMaksimal Rp 15.000.000");
+                System.out.println("Jumlah Setor Minimal Rp 50.000 dan \nMaksimal Rp 15.000.000");
+                System.out.println("====================================\n");
+            }
+            } else {
+                System.out.println("\n===================================");
+                System.out.println("Jumlah Setor Harus Kelipatan Rp 50.000");
                 System.out.println("====================================\n");
             }
         } while (!isSetor);
