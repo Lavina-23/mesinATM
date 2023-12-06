@@ -44,6 +44,7 @@ public class MesinATM_5 {
                     session = null;
                     break;
                 default:
+                    System.out.println("Menu Tidak Valid !");
                     break;
             }
         }
@@ -143,7 +144,7 @@ public class MesinATM_5 {
     }
 
     static void CekSaldo() {
-        do {
+        while (true) {
             System.out.println("\n======== JUMLAH SALDO =========");
             System.out.printf("Rp %s\n", nasabah[index][2]);
             System.out.println("===============================");
@@ -156,7 +157,7 @@ public class MesinATM_5 {
                 Login();
             }
             break;
-        } while (true);
+        }
 
     }
 
@@ -189,7 +190,7 @@ public class MesinATM_5 {
             System.out.println("||          3. BCA                ||");
             System.out.println("||          4. Kembali            ||");
             System.out.println("||================================||");
-            System.out.print("\nPilih Menu Transfer : ");
+            System.out.print("\nPilih Menu Bank : ");
             int menuBank = sc.nextInt();
             sc.nextLine();
 
