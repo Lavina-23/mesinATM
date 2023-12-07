@@ -1,8 +1,12 @@
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class MesinATM_5 {
     static Scanner sc = new Scanner(System.in);
+    static LocalDate date = LocalDate.now();
+    static LocalTime time = LocalTime.now();
     static String[][] nasabah = new String[3][5];
     static String[][] riwayat = new String[6][10];
     static String[][] va = new String[3][3];
@@ -282,8 +286,10 @@ public class MesinATM_5 {
                 nasabah[index][2] = String.valueOf(saldoPengirim);
 
                 System.out.println("\n====================================");
-                System.out.println("         TRANSFER BERHASIL !");
+                System.out.println("               ATM BTS");
                 System.out.println("====================================");
+                System.out.printf("\n" + date + " %tT%n", time);
+                System.out.println("Cabang JTI Polinema");
                 System.out.println("\nTransfer");
                 System.out.println("Ke Bank             : " + bankTujuan);
                 System.out.println("Ke Rekening         : " + rekTujuan);
@@ -469,8 +475,10 @@ public class MesinATM_5 {
     static void CetakResiSetoran(int jmlSetor, int saldoAkhir) {
         do {
             System.out.println("\n====================================");
-            System.out.println("       SETOR TUNAI BERHASIL !");
+            System.out.println("               ATM BTS");
             System.out.println("====================================");
+            System.out.printf("\n" + date + " %tT%n", time);
+            System.out.println("Cabang JTI Polinema");
             System.out.println("\nSetor Tunai");
             System.out.printf(Locale.ITALY, "Jumlah          : Rp %,d %n ", jmlSetor);
             System.out.printf(Locale.ITALY, "Total Saldo     : Rp %,d %n ", saldoAkhir);
@@ -578,7 +586,7 @@ public class MesinATM_5 {
 
         saldoAkhir = saldo - jmlTarik;
         nasabah[index][2] = String.valueOf(saldoAkhir);
-        CetakResiTarikTunai(saldoAkhir);
+        CetakResiTarikTunai(saldoAkhir, jmlTarik);
 
         String riwayatTarik = "\nTarik Tunai" +
                 "\nJumlah Tarik : " + jmlTarik +
@@ -589,12 +597,15 @@ public class MesinATM_5 {
 
     }
 
-    static void CetakResiTarikTunai(int saldoAkhir) {
+    static void CetakResiTarikTunai(int saldoAkhir, int jmlTarik) {
         do {
             System.out.println("\n====================================");
-            System.out.println("      PENARIKAN TUNAI BERHASIL !");
+            System.out.println("               ATM BTS");
             System.out.println("====================================");
+            System.out.printf("\n" + date + " %tT%n", time);
+            System.out.println("Cabang JTI Polinema");
             System.out.println("\nTarik Tunai");
+            System.out.printf(Locale.ITALY, "Jumlah              : Rp %,d %n", jmlTarik);
             System.out.printf(Locale.ITALY, "Sisa Saldo          : Rp %,d %n ", saldoAkhir);
             System.out.println("\n========== Terima Kasih ! ==========");
             System.out.print("\nTransaksi Lain ? (y/n) : ");
@@ -613,6 +624,7 @@ public class MesinATM_5 {
         do {
             System.out.println("\n====================================");
             System.out.println("          Riwayat Transaksi        ");
+            System.out.printf("\t%1$tA, %1$tB %1$tY %n", date);
             System.out.println("====================================");
 
             for (int i = 0; i < riwayat.length; i++) {
