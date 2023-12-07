@@ -320,50 +320,56 @@ public class MesinATM_5 {
         VA();
         int saldoPembayar = Integer.parseInt(nasabah[index][2]);
         boolean vaValid = false;
-        int jmlTagihan = 0, indexVA;
-        String jenis = null, noVA;
+        int jmlTagihan = 0;
+        String jenis = null, noVA, konfirmasi;
 
         do {
             System.out.print("Masukkan Nomor Virtual Acoount (12 Digit): ");
             noVA = sc.nextLine();
 
             for (int i = 0; i < va.length; i++) {
-                if (va[i][0].equals(noVA) && noVA.length() == 12) {
-                    if (jmlTagihan <= (saldoPembayar - 50_000)) {
-                        vaValid = true;
-                        indexVA = i;
-                        jmlTagihan = Integer.parseInt(va[indexVA][2]);
-                        jenis = va[indexVA][1];
-
-                        System.out.println("\n===================================");
-                        System.out.println("        RINCIAN PEMBAYARAN        ");
-                        System.out.println("===================================");
-                        System.out.println("\nNomor VA          : " + noVA);
-                        System.out.println("Pembayaran        : " + jenis);
-                        System.out.printf("Tunggakan         : Rp %d\n", jmlTagihan);
-                        System.out.printf("Jumlah Tagihan    : Rp %d\n", jmlTagihan);
-                        System.out.println("\n===================================");
-                        System.out.print("Apakah Anda Yakin ? (y/n) : ");
-                        String konfirmasi = sc.nextLine();
-
-                        if (konfirmasi.equalsIgnoreCase("y")) {
-                            saldoPembayar -= jmlTagihan;
-                            nasabah[index][2] = Integer.toString(saldoPembayar);
-                            System.out.println("Pembayaran Berhasil !");
-                            break;
-                        } else {
-                            System.out.println("Transaksi Dibatalkan");
+                if (va[i][0].equals(noVA)) {
+                    if (noVA.length() == 12) {
+                        if (jmlTagihan <= (saldoPembayar - 50_000)) {
+                            vaValid = true;
+                            jenis = va[i][1];
+                            jmlTagihan = Integer.parseInt(va[i][2]);
+                            continue;
                         }
                     } else {
-                        System.out.println("Saldo Anda Kurang !");
+                        System.out.println("Nomor Virtual Akun Harus 12 Digit !");
                     }
-                } else {
-                    System.out.println("Nomor Virtual Akun Tidak Valid !");
                 }
             }
 
+            if (!vaValid) {
+                System.out.println("Nomor Virtual Akun Tidak Valid !");
+            }
+        } while (!vaValid);
+
+        while (true) {
+            System.out.println("\n===================================");
+            System.out.println("        RINCIAN PEMBAYARAN        ");
+            System.out.println("===================================");
+            System.out.println("\nNomor VA          : " + noVA);
+            System.out.println("Pembayaran        : " + jenis);
+            System.out.printf("Tunggakan         : Rp %d\n", jmlTagihan);
+            System.out.printf("Jumlah Tagihan    : Rp %d\n", jmlTagihan);
+            System.out.println("\n===================================");
+            System.out.print("Apakah Anda Yakin ? (y/n) : ");
+            konfirmasi = sc.nextLine();
+
+            if (konfirmasi.equalsIgnoreCase("y")) {
+                saldoPembayar -= jmlTagihan;
+                nasabah[index][2] = Integer.toString(saldoPembayar);
+                System.out.println("Pembayaran Berhasil !");
+                break;
+            } else {
+                System.out.println("Transaksi Dibatalkan");
+            }
+
             System.out.print("\nTransaksi Lain ? (y/n) : ");
-            String konfirmasi = sc.nextLine();
+            konfirmasi = sc.nextLine();
 
             if (konfirmasi.equalsIgnoreCase("y")) {
                 break;
@@ -371,7 +377,7 @@ public class MesinATM_5 {
                 Login();
             }
             break;
-        } while (true);
+        }
 
         String riwayatVA = "\nTransfer" +
                 "\nJenis Transaksi      : Virtual Akun" +
