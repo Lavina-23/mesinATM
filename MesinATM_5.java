@@ -1,3 +1,4 @@
+import java.util.Locale;
 import java.util.Scanner;
 
 public class MesinATM_5 {
@@ -145,8 +146,9 @@ public class MesinATM_5 {
 
     static void CekSaldo() {
         while (true) {
+            int saldo = Integer.parseInt(nasabah[index][2]);
             System.out.println("\n======== JUMLAH SALDO ANDA =========");
-            System.out.printf("\nRp %s\n", nasabah[index][2]);
+            System.out.printf(Locale.ITALY, "\nRp %,d %n", saldo);
             System.out.println("\n====================================");
             System.out.print("Transaksi Lain ? (y/n) : ");
             String konfirmasi = sc.nextLine();
@@ -286,7 +288,7 @@ public class MesinATM_5 {
                 System.out.println("Ke Bank             : " + bankTujuan);
                 System.out.println("Ke Rekening         : " + rekTujuan);
                 System.out.println("Nama                : " + namaTujuan);
-                System.out.printf("Jumlah              : Rp %s\n", jmlTF);
+                System.out.printf(Locale.ITALY, "Jumlah              : Rp %,d %n", jmlTF);
                 System.out.println("\n========== Terima Kasih ! ==========");
 
                 String riwayatTF = "\nTransfer" +
@@ -353,8 +355,8 @@ public class MesinATM_5 {
             System.out.println("===================================");
             System.out.println("\nNomor VA          : " + noVA);
             System.out.println("Pembayaran        : " + jenis);
-            System.out.printf("Tunggakan         : Rp %d\n", jmlTagihan);
-            System.out.printf("Jumlah Tagihan    : Rp %d\n", jmlTagihan);
+            System.out.printf(Locale.ITALY, "Tunggakan         : Rp %,d %n", jmlTagihan);
+            System.out.printf(Locale.ITALY, "Jumlah Tagihan    : Rp %,d %n", jmlTagihan);
             System.out.println("\n===================================");
             System.out.print("Apakah Anda Yakin ? (y/n) : ");
             konfirmasi = sc.nextLine();
@@ -470,8 +472,8 @@ public class MesinATM_5 {
             System.out.println("       SETOR TUNAI BERHASIL !");
             System.out.println("====================================");
             System.out.println("\nSetor Tunai");
-            System.out.println("Jumlah          : Rp " + jmlSetor);
-            System.out.println("Total Saldo     : Rp " + saldoAkhir);
+            System.out.printf(Locale.ITALY, "Jumlah          : Rp %,d %n ", jmlSetor);
+            System.out.printf(Locale.ITALY, "Total Saldo     : Rp %,d %n ", saldoAkhir);
             System.out.println("\n========= Terima Kasih !  ==========");
             System.out.print("\nTransaksi Lain ? (y/n) : ");
             String konfirmasi = sc.nextLine();
@@ -493,7 +495,7 @@ public class MesinATM_5 {
             System.out.println("\nSetor Tunai");
             System.out.println("No Rekening         : " + rekTujuan);
             System.out.println("Nama Penerima       : " + namaTujuan);
-            System.out.println("Jumlah              : Rp " + jmlSetor);
+            System.out.printf(Locale.ITALY, "Jumlah              : Rp %,d %n " + jmlSetor);
             System.out.println("\n========= Terima Kasih !  ==========");
             System.out.print("\nTransaksi Lain ? (y/n) : ");
             String konfirmasi = sc.nextLine();
@@ -593,7 +595,7 @@ public class MesinATM_5 {
             System.out.println("      PENARIKAN TUNAI BERHASIL !");
             System.out.println("====================================");
             System.out.println("\nTarik Tunai");
-            System.out.println("Sisa Saldo          : Rp " + saldoAkhir);
+            System.out.printf(Locale.ITALY, "Sisa Saldo          : Rp %,d %n ", saldoAkhir);
             System.out.println("\n========== Terima Kasih ! ==========");
             System.out.print("\nTransaksi Lain ? (y/n) : ");
             String konfirmasi = sc.nextLine();
