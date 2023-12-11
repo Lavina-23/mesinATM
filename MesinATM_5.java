@@ -38,13 +38,16 @@ public class MesinATM_5 {
                     break;
                 case 5:
                     // Riwayat
-                    History();
+                    GantiPIN();
                     break;
                 case 6:
                     // Masuk
-                    Login();
+                    History();
                     break;
                 case 7:
+                    Login();
+                    break;
+                case 8:
                     // Keluar
                     session = null;
                     break;
@@ -138,9 +141,10 @@ public class MesinATM_5 {
         System.out.println("||          2. Tarik Tunai        ||");
         System.out.println("||          3. Setor Tunai        ||");
         System.out.println("||          4. Transfer           ||");
-        System.out.println("||          5. Riwayat            ||");
-        System.out.println("||          6. Masuk              ||");
-        System.out.println("||          7. Keluar             ||");
+        System.out.println("||          5. Ganti PIN           ||");
+        System.out.println("||          6. Riwayat            ||");
+        System.out.println("||          7. Masuk              ||");
+        System.out.println("||          8. Keluar             ||");
         System.out.println("||================================||");
         System.out.print("\nPilih menu : ");
         menu = sc.nextInt();
@@ -543,6 +547,29 @@ public class MesinATM_5 {
             break;
         } while (true);
 
+    }
+
+    static void GantiPIN() {
+        boolean isPIN = false;
+        do {
+            System.out.print("Masukkan PIN Lama : ");
+            String pinLama = sc.nextLine();
+
+            if (pinLama.equals(nasabah[index][1])) {
+                System.out.print("Masukkan PIN Baru : ");
+                String pinBaru = sc.nextLine();
+
+                if (pinBaru.length() == 6) {
+                    isPIN = true;
+                    nasabah[index][1] = pinBaru;
+                    Login();
+                } else {
+                    System.out.println("PIN Harus 6 Digit");
+                }
+            } else {
+                System.out.println("PIN Anda Salah !");
+            }
+        } while (!isPIN);
     }
 
     static void VirtualAkun() {
