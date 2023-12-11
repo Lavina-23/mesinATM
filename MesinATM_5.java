@@ -141,7 +141,7 @@ public class MesinATM_5 {
         System.out.println("||          2. Tarik Tunai        ||");
         System.out.println("||          3. Setor Tunai        ||");
         System.out.println("||          4. Transfer           ||");
-        System.out.println("||          5. Ganti PIN           ||");
+        System.out.println("||          5. Ganti PIN          ||");
         System.out.println("||          6. Riwayat            ||");
         System.out.println("||          7. Masuk              ||");
         System.out.println("||          8. Keluar             ||");
@@ -213,12 +213,13 @@ public class MesinATM_5 {
                 nasabah[index][2] = String.valueOf(saldoAkhir);
                 CetakResiTarikTunai(saldoAkhir, jmlTarik);
 
-                String riwayatTarik = "\nTarik Tunai" +
-                        "\nJumlah Tarik : " + jmlTarik +
-                        "\nSaldo        : " + saldoAkhir;
+                String jenisTrans = "Tarik Tunai";
+                LocalDate tglTrans = date;
 
-                riwayat[index][counter] = riwayatTarik;
-                counter++;
+                riwayat[index][0] = String.valueOf(tglTrans);
+                riwayat[index][1] = jenisTrans;
+                riwayat[index][2] = String.valueOf(jmlTarik);
+                riwayat[index][3] = String.valueOf(saldoAkhir);
             } else {
                 System.out.println("Transaksi Dibatalkan !");
             }
@@ -240,12 +241,14 @@ public class MesinATM_5 {
                             nasabah[index][2] = String.valueOf(saldoAkhir);
                             CetakResiTarikTunai(saldoAkhir, jmlTarik);
 
-                            String riwayatTarik = "\nTarik Tunai" +
-                                    "\nJumlah Tarik : " + jmlTarik +
-                                    "\nSaldo        : " + saldoAkhir;
+                            String jenisTrans = "Tarik Tunai";
+                            LocalDate tglTrans = date;
 
-                            riwayat[index][counter] = riwayatTarik;
                             counter++;
+                            riwayat[counter][0] = String.valueOf(tglTrans);
+                            riwayat[counter][1] = jenisTrans;
+                            riwayat[counter][2] = String.valueOf(jmlTarik);
+                            riwayat[counter][3] = nasabah[index][2];
                         }
                     } else {
                         System.out.println("\n------------------------------------");
@@ -321,7 +324,10 @@ public class MesinATM_5 {
 
                             CetakResiSetoran(jmlSetor, saldoAkhir);
                         } else {
+                            System.out.println("\n------------------------------------");
                             System.out.println("Transaksi Dibatalkan !");
+                            System.out.println("------------------------------------");
+
                         }
 
                     } else if (menu == 2) {
@@ -687,21 +693,27 @@ public class MesinATM_5 {
 
     static void History() {
         do {
-            System.out.println("\n====================================");
-            System.out.println("          Riwayat Transaksi        ");
-            System.out.printf("\t%1$tA, %1$tB %1$tY %n", date);
-            System.out.println("====================================");
+            System.out.println("\n==========================================================================");
+            System.out.println("|                              Mutasi Rekening                           |");
+            System.out.printf("|\t\t\t\t%1$tB %1$tY                            |%n", date);
+            System.out.println("==========================================================================");
+            System.out.println("|     Tgl    |       Keterangan       |     Mutasi     |      Saldo      |");
+            System.out.println("==========================================================================");
 
             for (int i = 0; i < riwayat.length; i++) {
                 if (riwayat[i] != null) {
-                    for (String history : riwayat[i]) {
-                        if (history != null) {
-                            System.out.println(history);
-                            System.out.println("\n====================================");
-                        }
+                    if (riwayat[i][0] != null && riwayat[i][1] != null && riwayat[i][2] != null
+                            && riwayat[i][3] != null) {
+                        System.out.printf("| %-10s | %-22s | %-14s | %-15s | %n", riwayat[i][0],
+                                riwayat[i][1], riwayat[i][2], riwayat[i][3]);
+                        System.out
+                                .println("==========================================================================");
                     }
+                } else {
+                    break;
                 }
             }
+
             System.out.println();
 
             System.out.print("Transaksi Lain ? (y/n) : ");
