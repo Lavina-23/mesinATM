@@ -375,12 +375,14 @@ public class MesinATM_5 {
             }
         } while (!isSetor);
 
-        riwayatSetor = "\nSetor Tunai" +
-                "\nNo Rekening       : " + rekSetor +
-                "\nJumlah Setoran    : Rp " + jmlSetor +
-                "\nSaldo             : Rp " + saldoAkhir;
-        riwayat[index][counter] = riwayatSetor;
-        counter++;
+                String jenisTrans = "Setor Tunai";
+                LocalDate tglTrans = date;
+
+                riwayat[index][0] = String.valueOf(tglTrans);
+                riwayat[index][1] = jenisTrans;
+                riwayat[1][index] = String.valueOf(rekSetor);
+                riwayat[index][2] = String.valueOf(jmlSetor);
+                riwayat[index][3] = String.valueOf(saldoAkhir);
     }
 
     static void CetakResiSetoran(int jmlSetor, int saldoAkhir) {
@@ -567,16 +569,13 @@ public class MesinATM_5 {
                 System.out.printf(Locale.ITALY, "Jumlah              : Rp %,d %n", jmlTF);
                 System.out.println("\n========== Terima Kasih ! ==========");
 
-                String riwayatTF = "\nTransfer" +
-                        "\nJenis Transaksi       : " + jenis +
-                        "\nBank Tujuan           : " + bankTujuan +
-                        "\nNomor Rekening Tujuan : " + rekTujuan +
-                        "\nNama                  : " + namaTujuan +
-                        "\nTotal Transfer        : Rp " + totalTF +
-                        "\nSisa Saldo            : Rp " + saldoPengirim;
+                String jenisTrans = "Transfer";
+                LocalDate tglTrans = date;
 
-                riwayat[index][counter] = riwayatTF;
-                counter++;
+                riwayat[index][0] = String.valueOf(tglTrans);
+                riwayat[index][1] = jenisTrans;
+                riwayat[index][2] = String.valueOf(totalTF);
+                riwayat[index][3] = String.valueOf(saldoPengirim);
 
             } else {
                 System.out.print("Saldo Anda Kurang !");
@@ -680,15 +679,13 @@ public class MesinATM_5 {
             break;
         }
 
-        String riwayatVA = "\nTransfer" +
-                "\nJenis Transaksi      : Virtual Akun" +
-                "\nNomor VA             : " + noVA +
-                "\nPembayaran           : " + jenis +
-                "\nTunggakan            : Rp " + jmlTagihan +
-                "\nJumlah Tagihan       : Rp " + jmlTagihan;
+                String jenisTrans = "Pembayaran VA";
+                LocalDate tglTrans = date;
 
-        riwayat[index][counter] = riwayatVA;
-        counter++;
+                riwayat[index][0] = String.valueOf(tglTrans);
+                riwayat[index][1] = jenisTrans;
+                riwayat[index][2] = String.valueOf(jmlTagihan);
+                riwayat[index][3] = String.valueOf(saldoPembayar);
     }
 
     static void History() {
