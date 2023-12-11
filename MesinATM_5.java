@@ -187,24 +187,42 @@ public class MesinATM_5 {
         System.out.println("||        6. 2.000.000            ||");
         System.out.println("||        7. Penarikan lainnya    ||");
         System.out.println("||================================||");
-        System.out.print("Pilih menu: ");
+        System.out.print("Pilih menu : ");
         int menu = sc.nextInt();
         sc.nextLine();
 
-        if (menu == 1) {
-            jmlTarik = 100_000;
-        } else if (menu == 2) {
-            jmlTarik = 200_000;
-        } else if (menu == 3) {
-            jmlTarik = 300_000;
-        } else if (menu == 4) {
-            jmlTarik = 500_000;
-        } else if (menu == 5) {
-            jmlTarik = 1_000_000;
-        } else if (menu == 6) {
-            jmlTarik = 2_000_000;
-        } else if (menu == 7) {
+        if (menu < 7) {
+            System.out.print("Apakah Anda Yakin ? (y/n) : ");
+            String konfirmasi = sc.nextLine();
 
+            if (konfirmasi.equalsIgnoreCase("y")) {
+                if (menu == 1) {
+                    jmlTarik = 100_000;
+                } else if (menu == 2) {
+                    jmlTarik = 200_000;
+                } else if (menu == 3) {
+                    jmlTarik = 300_000;
+                } else if (menu == 4) {
+                    jmlTarik = 500_000;
+                } else if (menu == 5) {
+                    jmlTarik = 1_000_000;
+                } else if (menu == 6) {
+                    jmlTarik = 2_000_000;
+                }
+                saldoAkhir = saldo - jmlTarik;
+                nasabah[index][2] = String.valueOf(saldoAkhir);
+                CetakResiTarikTunai(saldoAkhir, jmlTarik);
+
+                String riwayatTarik = "\nTarik Tunai" +
+                        "\nJumlah Tarik : " + jmlTarik +
+                        "\nSaldo        : " + saldoAkhir;
+
+                riwayat[index][counter] = riwayatTarik;
+                counter++;
+            } else {
+                System.out.println("Transaksi Dibatalkan !");
+            }
+        } else if (menu == 7) {
             boolean isTarik = false;
             do {
                 System.out.print("Masukkan jumlah penarikan: Rp ");
@@ -214,39 +232,34 @@ public class MesinATM_5 {
                 if (jmlTarik >= 100_000) {
                     if (jmlTarik <= 7_000_000) {
                         isTarik = true;
-                        System.out.print("Benar / Salah            : ");
+                        System.out.print("Apakah Anda Yakin ? (y/n) : ");
                         String confirm = sc.nextLine();
 
-                        if (confirm.equalsIgnoreCase("Benar")) {
-                            continue;
+                        if (confirm.equalsIgnoreCase("y")) {
+                            saldoAkhir = saldo - jmlTarik;
+                            nasabah[index][2] = String.valueOf(saldoAkhir);
+                            CetakResiTarikTunai(saldoAkhir, jmlTarik);
+
+                            String riwayatTarik = "\nTarik Tunai" +
+                                    "\nJumlah Tarik : " + jmlTarik +
+                                    "\nSaldo        : " + saldoAkhir;
+
+                            riwayat[index][counter] = riwayatTarik;
+                            counter++;
                         }
                     } else {
-                        System.out.println("\n====================================");
+                        System.out.println("\n------------------------------------");
                         System.out.println("Maksimal Tarik Tunai Rp 7.000.000");
-                        System.out.println("====================================\n");
+                        System.out.println("------------------------------------\n");
 
                     }
                 } else {
-                    System.out.println("\n====================================");
+                    System.out.println("\n------------------------------------");
                     System.out.println("Minimal Tarik Tunai Rp 100.000");
-                    System.out.println("====================================\n");
+                    System.out.println("------------------------------------\n");
                 }
-
             } while (!isTarik);
-
         }
-
-        saldoAkhir = saldo - jmlTarik;
-        nasabah[index][2] = String.valueOf(saldoAkhir);
-        CetakResiTarikTunai(saldoAkhir, jmlTarik);
-
-        String riwayatTarik = "\nTarik Tunai" +
-                "\nJumlah Tarik : " + jmlTarik +
-                "\nSaldo        : " + saldoAkhir;
-
-        riwayat[index][counter] = riwayatTarik;
-        counter++;
-
     }
 
     static void CetakResiTarikTunai(int saldoAkhir, int jmlTarik) {
@@ -298,11 +311,19 @@ public class MesinATM_5 {
                     sc.nextLine();
 
                     if (menu == 1) {
-                        rekSetor = nasabah[index][0];
-                        saldoAkhir = saldoSendiri + jmlSetor;
-                        nasabah[index][2] = Integer.toString(saldoAkhir);
+                        System.out.print("Apakah Anda Yakin ? (y/n) : ");
+                        String konfirmasi = sc.nextLine();
 
-                        CetakResiSetoran(jmlSetor, saldoAkhir);
+                        if (konfirmasi.equalsIgnoreCase("y")) {
+                            rekSetor = nasabah[index][0];
+                            saldoAkhir = saldoSendiri + jmlSetor;
+                            nasabah[index][2] = Integer.toString(saldoAkhir);
+
+                            CetakResiSetoran(jmlSetor, saldoAkhir);
+                        } else {
+                            System.out.println("Transaksi Dibatalkan !");
+                        }
+
                     } else if (menu == 2) {
                         do {
                             System.out.print("Masukkan Rekening Tujuan : ");
@@ -318,12 +339,22 @@ public class MesinATM_5 {
                                     namaTujuan = nasabah[i][3];
                                 }
                             }
-                            if (Banktujuan == "BTS") {
-                                CetakResiSetoranLain(namaTujuan, rekSetor, jmlSetor);
-                                break;
+
+                            System.out.print("Apakah Anda Yakin ? (y/n) : ");
+                            String konfirmasi = sc.nextLine();
+
+                            if (konfirmasi.equalsIgnoreCase("y")) {
+                                if (Banktujuan == "BTS") {
+                                    CetakResiSetoranLain(namaTujuan, rekSetor, jmlSetor);
+                                    break;
+                                } else {
+                                    System.out.println("Rekening Tidak Valid");
+                                }
                             } else {
-                                System.out.println("Rekening Tidak Valid");
+                                System.out.println("Transaksi Dibatalkan !");
+                                break;
                             }
+
                         } while (true);
                     }
                 } else {
@@ -355,7 +386,7 @@ public class MesinATM_5 {
             System.out.println("Cabang JTI Polinema");
             System.out.println("\nSetor Tunai");
             System.out.printf(Locale.ITALY, "Jumlah          : Rp %,d %n ", jmlSetor);
-            System.out.printf(Locale.ITALY, "Total Saldo     : Rp %,d %n ", saldoAkhir);
+            System.out.printf(Locale.ITALY, "Total Saldo    : Rp %,d %n ", saldoAkhir);
             System.out.println("\n========= Terima Kasih !  ==========");
             System.out.print("\nTransaksi Lain ? (y/n) : ");
             String konfirmasi = sc.nextLine();
@@ -375,9 +406,9 @@ public class MesinATM_5 {
             System.out.println("       SETOR TUNAI BERHASIL !");
             System.out.println("====================================");
             System.out.println("\nSetor Tunai");
-            System.out.println("No Rekening         : " + rekTujuan);
-            System.out.println("Nama Penerima       : " + namaTujuan);
-            System.out.printf(Locale.ITALY, "Jumlah              : Rp %,d %n " + jmlSetor);
+            System.out.println("No Rekening       : " + rekTujuan);
+            System.out.println("Nama Penerima     : " + namaTujuan);
+            System.out.printf(Locale.ITALY, "Jumlah            : Rp %,d %n ", jmlSetor);
             System.out.println("\n========= Terima Kasih !  ==========");
             System.out.print("\nTransaksi Lain ? (y/n) : ");
             String konfirmasi = sc.nextLine();
@@ -476,23 +507,31 @@ public class MesinATM_5 {
             jmlTF = sc.nextInt();
             sc.nextLine();
 
-            if (jmlTF >= 10_000 && jmlTF <= 25_000_000) {
-                isTransfer = true;
-                if (jmlTF <= (saldoPengirim - 50_000)) {
-                    totalTF = jmlTF + admin;
-                    jenis = "Transfer Sesama Bank";
-                    saldoTujuan = Integer.parseInt(nasabah[indexTujuan][2]);
-                    namaTujuan = nasabah[indexTujuan][3];
-                    bankTujuan = nasabah[indexTujuan][4];
-                    CetakResiTransfer(jenis, rekTujuan, bankTujuan, namaTujuan, saldoPengirim, saldoTujuan, jmlTF,
-                            totalTF, admin);
+            System.out.print("Apakah Anda Yakin ? (y/n)     : ");
+            String konfirmasi = sc.nextLine();
+
+            if (konfirmasi.equalsIgnoreCase("y")) {
+                if (jmlTF >= 10_000 && jmlTF <= 25_000_000) {
+                    isTransfer = true;
+                    if (jmlTF <= (saldoPengirim - 50_000)) {
+                        totalTF = jmlTF + admin;
+                        jenis = "Transfer Sesama Bank";
+                        saldoTujuan = Integer.parseInt(nasabah[indexTujuan][2]);
+                        namaTujuan = nasabah[indexTujuan][3];
+                        bankTujuan = nasabah[indexTujuan][4];
+                        CetakResiTransfer(jenis, rekTujuan, bankTujuan, namaTujuan, saldoPengirim, saldoTujuan, jmlTF,
+                                totalTF, admin);
+                    } else {
+                        System.out.print("Saldo Anda Kurang !");
+                    }
                 } else {
-                    System.out.print("Saldo Anda Kurang !");
+                    System.out.println("\n====================================");
+                    System.out.println("Minimal Transfer Rp 10.000 dan \nMaksimal Rp 25.000.000");
+                    System.out.println("====================================\n");
                 }
             } else {
-                System.out.println("\n====================================");
-                System.out.println("Minimal Transfer Rp 10.000 dan \nMaksimal Rp 25.000.000");
-                System.out.println("====================================\n");
+                System.out.println("Transaksi Dibatalkan !");
+                break;
             }
         } while (!isTransfer);
 
