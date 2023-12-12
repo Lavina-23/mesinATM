@@ -99,14 +99,14 @@ public class MesinATM_5 {
             boolean trueRek = false;
             boolean truePIN = false;
 
-            System.out.println("\n------------------------------------");
+            System.out.println("\n||================================||");
             System.out.println("    SELAMAT DATANG DI BANK BTS !");
-            System.out.println("------------------------------------");
+            System.out.println("\n||================================||");
             System.out.print("\nMasukkan Nomor Rekening anda : ");
             String noRek = sc.nextLine();
             System.out.print("Masukkan PIN anda            : ");
             String pin = sc.nextLine();
-            System.out.println("\n------------------------------------");
+            System.out.println("\n||================================||");
 
             for (int i = 0; i < nasabah.length; i++) {
                 index = i;
@@ -121,11 +121,17 @@ public class MesinATM_5 {
             }
 
             if (!truePIN && !trueRek) {
+                System.out.println("\n||================================||");
                 System.out.println("Nomor Rekening dan PIN Anda Salah !");
+                System.out.println("||================================||");
             } else if (!truePIN) {
+                System.out.println("\n||================================||");
                 System.out.println("PIN Anda Salah !");
+                System.out.println("||================================||");
             } else if (!trueRek) {
+                System.out.println("\n||================================||");
                 System.out.println("Nomor Rekening Anda Salah !");
+                System.out.println("||================================||");
             }
         } while (session == null);
         return session;
@@ -221,7 +227,9 @@ public class MesinATM_5 {
                 riwayat[index][2] = String.valueOf(jmlTarik);
                 riwayat[index][3] = String.valueOf(saldoAkhir);
             } else {
+                System.out.println("\n||================================||");
                 System.out.println("Transaksi Dibatalkan !");
+                System.out.println("||================================||");
             }
         } else if (menu == 7) {
             boolean isTarik = false;
@@ -251,15 +259,15 @@ public class MesinATM_5 {
                             riwayat[counter][3] = nasabah[index][2];
                         }
                     } else {
-                        System.out.println("\n------------------------------------");
+                        System.out.println("\n||================================||");
                         System.out.println("Maksimal Tarik Tunai Rp 7.000.000");
-                        System.out.println("------------------------------------\n");
+                        System.out.println("||================================||\n");
 
                     }
                 } else {
-                    System.out.println("\n------------------------------------");
+                    System.out.println("\n||================================||");
                     System.out.println("Minimal Tarik Tunai Rp 100.000");
-                    System.out.println("------------------------------------\n");
+                    System.out.println("||================================||\n");
                 }
             } while (!isTarik);
         }
@@ -324,9 +332,9 @@ public class MesinATM_5 {
 
                             CetakResiSetoran(jmlSetor, saldoAkhir);
                         } else {
-                            System.out.println("\n------------------------------------");
+                            System.out.println("\n||================================||");
                             System.out.println("Transaksi Dibatalkan !");
-                            System.out.println("------------------------------------");
+                            System.out.println("||================================||");
 
                         }
 
@@ -354,10 +362,14 @@ public class MesinATM_5 {
                                     CetakResiSetoranLain(namaTujuan, rekSetor, jmlSetor);
                                     break;
                                 } else {
+                                    System.out.println("\n||================================||");
                                     System.out.println("Rekening Tidak Valid");
+                                    System.out.println("||================================||");
                                 }
                             } else {
+                                System.out.println("\n||================================||");
                                 System.out.println("Transaksi Dibatalkan !");
+                                System.out.println("||================================||");
                                 break;
                             }
 
@@ -471,14 +483,18 @@ public class MesinATM_5 {
             } else if (menuBank == 4) {
                 MenuUtama();
             } else {
+                System.out.println("\n||================================||");
                 System.out.println("Menu Tidak Valid !");
+                System.out.println("||================================||");
             }
 
             Transfer(admin, bankTujuan);
         } else if (menu == 3) {
             VirtualAkun();
         } else {
+            System.out.println("\n||================================||");
             System.out.println("Menu Tidak Valid !");
+            System.out.println("||================================||");
         }
 
     }
@@ -503,7 +519,9 @@ public class MesinATM_5 {
             }
 
             if (!rekValid) {
+                System.out.println("\n||================================||");
                 System.out.println("Nomor Rekening Tidak Valid !");
+                System.out.println("||================================||");
             }
         } while (!rekValid);
 
@@ -536,7 +554,9 @@ public class MesinATM_5 {
                     System.out.println("====================================\n");
                 }
             } else {
+                System.out.println("\n||================================||");
                 System.out.println("Transaksi Dibatalkan !");
+                System.out.println("||================================||");
                 break;
             }
         } while (!isTransfer);
@@ -579,7 +599,9 @@ public class MesinATM_5 {
                 counter++;
 
             } else {
+                System.out.println("\n||================================||");
                 System.out.print("Saldo Anda Kurang !");
+                System.out.println("||================================||");
             }
             System.out.print("\nTransaksi Lain ? (y/n) : ");
             konfirmasi = sc.nextLine();
@@ -609,10 +631,14 @@ public class MesinATM_5 {
                     nasabah[index][1] = pinBaru;
                     Login();
                 } else {
+                    System.out.println("\n||================================||");
                     System.out.println("PIN Harus 6 Digit");
+                    System.out.println("||================================||");
                 }
             } else {
+                System.out.println("\n||================================||");
                 System.out.println("PIN Anda Salah !");
+                System.out.println("||================================||");
             }
         } while (!isPIN);
     }
@@ -644,7 +670,9 @@ public class MesinATM_5 {
             }
 
             if (!vaValid) {
+                System.out.println("\n||================================||");
                 System.out.println("Nomor Virtual Akun Tidak Valid !");
+                System.out.println("||================================||");
             }
         } while (!vaValid);
 
@@ -663,10 +691,14 @@ public class MesinATM_5 {
             if (konfirmasi.equalsIgnoreCase("y")) {
                 saldoPembayar -= jmlTagihan;
                 nasabah[index][2] = Integer.toString(saldoPembayar);
+                System.out.println("\n||================================||");
                 System.out.println("Pembayaran Berhasil !");
+                System.out.println("||================================||");
                 break;
             } else {
+                System.out.println("\n||================================||");
                 System.out.println("Transaksi Dibatalkan");
+                System.out.println("||================================||");
             }
 
             System.out.print("\nTransaksi Lain ? (y/n) : ");
