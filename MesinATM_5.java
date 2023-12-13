@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 public class MesinATM_5 {
     static Scanner sc = new Scanner(System.in);
-    static LocalDate date = LocalDate.now();
+    static LocalDate date = LocalDate.now();`
     static LocalTime time = LocalTime.now();
     static String[][] nasabah = new String[3][5];
     static String[][] riwayat = new String[4][10];
