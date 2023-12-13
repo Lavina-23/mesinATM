@@ -220,13 +220,14 @@ public class MesinATM_5 {
                 nasabah[index][2] = String.valueOf(saldoAkhir);
                 CetakResiTarikTunai(saldoAkhir, jmlTarik);
 
-                String jenisTrans = "Tarik Tunai";
-                LocalDate tglTrans = date;
+                            String jenisTrans = "Tarik Tunai";
+                            LocalDate tglTrans = date;
 
-                riwayat[index][0] = String.valueOf(tglTrans);
-                riwayat[index][1] = jenisTrans;
-                riwayat[index][2] = String.valueOf(jmlTarik);
-                riwayat[index][3] = String.valueOf(saldoAkhir);
+                            counter++;
+                            riwayat[counter][0] = String.valueOf(tglTrans);
+                            riwayat[counter][1] = jenisTrans;
+                            riwayat[counter][2] = String.valueOf(jmlTarik);
+                            riwayat[counter][3] = nasabah[index][2];
             } else {
                 System.out.println("\n================================");
                 System.out.println("Transaksi Dibatalkan !");
@@ -332,6 +333,15 @@ public class MesinATM_5 {
                             nasabah[index][2] = Integer.toString(saldoAkhir);
 
                             CetakResiSetoran(jmlSetor, saldoAkhir);
+                            
+                            String jenisTrans = "Setor Tunai";
+                            LocalDate tglTrans = date;
+
+                            counter++;
+                            riwayat[counter][0] = String.valueOf(tglTrans);
+                            riwayat[counter][1] = jenisTrans;
+                            riwayat[counter][2] = String.valueOf(jmlSetor);
+                            riwayat[counter][3] = nasabah[index][2];
                         } else {
                             System.out.println("\n================================");
                             System.out.println("Transaksi Dibatalkan !");
@@ -387,15 +397,6 @@ public class MesinATM_5 {
                 System.out.println("====================================\n");
             }
         } while (!isSetor);
-
-        String jenisTrans = "Setor Tunai";
-        LocalDate tglTrans = date;
-
-        riwayat[index][0] = String.valueOf(tglTrans);
-        riwayat[index][1] = jenisTrans;
-        riwayat[1][index] = String.valueOf(rekSetor);
-        riwayat[index][2] = String.valueOf(jmlSetor);
-        riwayat[index][3] = String.valueOf(saldoAkhir);
     }
 
     static void CetakResiSetoran(int jmlSetor, int saldoAkhir) {
@@ -559,7 +560,7 @@ public class MesinATM_5 {
                         riwayat[counter][0] = String.valueOf(tglTrans);
                         riwayat[counter][1] = jenisTrans;
                         riwayat[counter][2] = String.valueOf(totalTF);
-                        riwayat[counter][3] = String.valueOf(saldoPengirim);
+                        riwayat[counter][3] = nasabah[index][2];
 
                         CetakResiTransfer(rekTujuan, bankTujuan, namaTujuan, jmlTF, totalTF);
                     } else {
@@ -691,6 +692,16 @@ public class MesinATM_5 {
                 System.out.println("\n================================");
                 System.out.println("Pembayaran Berhasil !");
                 System.out.println("================================");
+
+                String jenisTrans = "Pembayaran " + jenis;
+                LocalDate tglTrans = date;
+
+                counter++;
+                riwayat[counter][0] = String.valueOf(tglTrans);
+                riwayat[counter][1] = jenisTrans;
+                riwayat[counter][2] = String.valueOf(jmlTagihan);
+                riwayat[counter][3] = nasabah[index][2];
+
                 break;
             } else {
                 System.out.println("\n================================");
@@ -709,13 +720,6 @@ public class MesinATM_5 {
             break;
         }
 
-        String jenisTrans = "Pembayaran " + jenis;
-        LocalDate tglTrans = date;
-
-        riwayat[index][0] = String.valueOf(tglTrans);
-        riwayat[index][1] = jenisTrans;
-        riwayat[index][2] = String.valueOf(jmlTagihan);
-        riwayat[index][3] = String.valueOf(saldoPembayar);
     }
 
     static void History() {
