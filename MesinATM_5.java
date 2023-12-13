@@ -642,7 +642,7 @@ public class MesinATM_5 {
         VA();
         int saldoPembayar = Integer.parseInt(nasabah[index][2]);
         boolean vaValid = false;
-        int jmlTagihan = 0, indexVA = -1;
+        int jmlTagihan = 0;
         String jenis = null, noVA, konfirmasi;
 
         do {
@@ -652,10 +652,9 @@ public class MesinATM_5 {
             for (int i = 0; i < va.length; i++) {
                 if (va[i][0].equals(noVA)) {
                     if (noVA.length() == 12) {
-                        indexVA = i;
                         vaValid = true;
-                        jenis = va[indexVA][1];
-                        jmlTagihan = Integer.parseInt(va[indexVA][2]);
+                        jenis = va[i][1];
+                        jmlTagihan = Integer.parseInt(va[i][2]);
                     } else {
                         System.out.println("\n================================");
                         System.out.println("Nomor Virtual Akun Harus 12 Digit !");
