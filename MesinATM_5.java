@@ -8,7 +8,7 @@ public class MesinATM_5 {
     static LocalDate date = LocalDate.now();
     static LocalTime time = LocalTime.now();
     static String[][] nasabah = new String[3][5];
-    static String[][] riwayat = new String[6][10];
+    static String[][] riwayat = new String[4][10];
     static String[][] va = new String[3][3];
     static int counter = 0;
     static int index = -1;
@@ -82,7 +82,7 @@ public class MesinATM_5 {
     static void VA() {
         va[0][0] = "123456789012";
         va[0][1] = "Listrik PLN";
-        va[0][2] = "550000";
+        va[0][2] = "55000000";
 
         va[1][0] = "123456789034";
         va[1][1] = "Air PDAM";
@@ -642,7 +642,7 @@ public class MesinATM_5 {
         VA();
         int saldoPembayar = Integer.parseInt(nasabah[index][2]);
         boolean vaValid = false;
-        int jmlTagihan = 0;
+        int jmlTagihan = 0, indexVA = -1;
         String jenis = null, noVA, konfirmasi;
 
         do {
@@ -652,12 +652,10 @@ public class MesinATM_5 {
             for (int i = 0; i < va.length; i++) {
                 if (va[i][0].equals(noVA)) {
                     if (noVA.length() == 12) {
-                        if (jmlTagihan <= (saldoPembayar - 50_000)) {
-                            vaValid = true;
-                            jenis = va[i][1];
-                            jmlTagihan = Integer.parseInt(va[i][2]);
-                            continue;
-                        }
+                        indexVA = i;
+                        vaValid = true;
+                        jenis = va[indexVA][1];
+                        jmlTagihan = Integer.parseInt(va[indexVA][2]);
                     } else {
                         System.out.println("\n================================");
                         System.out.println("Nomor Virtual Akun Harus 12 Digit !");
@@ -674,14 +672,22 @@ public class MesinATM_5 {
         } while (!vaValid);
 
         while (true) {
-            System.out.println("\n===================================");
-            System.out.println("        RINCIAN PEMBAYARAN        ");
-            System.out.println("===================================");
-            System.out.println("\nNomor VA          : " + noVA);
-            System.out.println("Pembayaran        : " + jenis);
-            System.out.printf(Locale.ITALY, "Tunggakan         : Rp %,d %n", jmlTagihan);
-            System.out.printf(Locale.ITALY, "Jumlah Tagihan    : Rp %,d %n", jmlTagihan);
-            System.out.println("\n===================================");
+            if (jmlTagihan <= (saldoPembayar - 50_000)) {
+                System.out.println("\n===================================");
+                System.out.println("        RINCIAN PEMBAYARAN        ");
+                System.out.println("===================================");
+                System.out.println("\nNomor VA          : " + noVA);
+                System.out.println("Pembayaran        : " + jenis);
+                System.out.printf(Locale.ITALY, "Tunggakan         : Rp %,d %n", jmlTagihan);
+                System.out.printf(Locale.ITALY, "Jumlah Tagihan    : Rp %,d %n", jmlTagihan);
+                System.out.println("\n===================================");
+            } else {
+                System.out.println("\n================================");
+                System.out.println("Saldo Anda Kurang !");
+                System.out.println("================================");
+                break;
+            }
+
             System.out.print("Apakah Anda Yakin ? (y/n) : ");
             konfirmasi = sc.nextLine();
 
