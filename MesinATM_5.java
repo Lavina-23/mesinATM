@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 public class MesinATM_5 {
     static Scanner sc = new Scanner(System.in);
-    static LocalDate date = LocalDate.now();`
+    static LocalDate date = LocalDate.now();
     static LocalTime time = LocalTime.now();
     static String[][] nasabah = new String[3][5];
-    static String[][] riwayat = new String[4][10];
+    static String[][] riwayat = new String[10][4];
     static String[][] va = new String[3][3];
     static int counter = 0;
     static int index = -1;
@@ -220,14 +220,14 @@ public class MesinATM_5 {
                 nasabah[index][2] = String.valueOf(saldoAkhir);
                 CetakResiTarikTunai(saldoAkhir, jmlTarik);
 
-                            String jenisTrans = "Tarik Tunai";
-                            LocalDate tglTrans = date;
+                String jenisTrans = "Tarik Tunai";
+                LocalDate tglTrans = date;
 
-                            counter++;
-                            riwayat[counter][0] = String.valueOf(tglTrans);
-                            riwayat[counter][1] = jenisTrans;
-                            riwayat[counter][2] = String.valueOf(jmlTarik);
-                            riwayat[counter][3] = nasabah[index][2];
+                counter++;
+                riwayat[counter][0] = String.valueOf(tglTrans);
+                riwayat[counter][1] = jenisTrans;
+                riwayat[counter][2] = String.valueOf(jmlTarik);
+                riwayat[counter][3] = nasabah[index][2];
             } else {
                 System.out.println("\n================================");
                 System.out.println("Transaksi Dibatalkan !");
@@ -333,15 +333,6 @@ public class MesinATM_5 {
                             nasabah[index][2] = Integer.toString(saldoAkhir);
 
                             CetakResiSetoran(jmlSetor, saldoAkhir);
-                            
-                            String jenisTrans = "Setor Tunai";
-                            LocalDate tglTrans = date;
-
-                            counter++;
-                            riwayat[counter][0] = String.valueOf(tglTrans);
-                            riwayat[counter][1] = jenisTrans;
-                            riwayat[counter][2] = String.valueOf(jmlSetor);
-                            riwayat[counter][3] = nasabah[index][2];
                         } else {
                             System.out.println("\n================================");
                             System.out.println("Transaksi Dibatalkan !");
@@ -356,12 +347,12 @@ public class MesinATM_5 {
 
                             for (int i = 0; i < nasabah.length; i++) {
                                 if (rekSetor.equals(nasabah[i][0])) {
-                                    saldoAkhirLain += jmlSetor;
                                     saldoAkhirLain = Integer.parseInt(nasabah[i][2]);
+                                    saldoAkhirLain += jmlSetor;
                                     nasabah[i][2] = String.valueOf(saldoAkhirLain);
                                     saldoAkhir = Integer.parseInt(nasabah[index][2]);
-                                    Banktujuan = nasabah[i][4];
                                     namaTujuan = nasabah[i][3];
+                                    Banktujuan = nasabah[i][4];
                                 }
                             }
 
@@ -396,6 +387,15 @@ public class MesinATM_5 {
                 System.out.println("Jumlah Setor Harus Kelipatan Rp 50.000");
                 System.out.println("====================================\n");
             }
+
+            String jenisTrans = "Setor Tunai";
+            LocalDate tglTrans = date;
+
+            counter++;
+            riwayat[counter][0] = String.valueOf(tglTrans);
+            riwayat[counter][1] = jenisTrans;
+            riwayat[counter][2] = String.valueOf(jmlSetor);
+            riwayat[counter][3] = nasabah[index][2];
         } while (!isSetor);
     }
 
