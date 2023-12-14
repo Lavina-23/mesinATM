@@ -7,7 +7,7 @@ public class MesinATM_5 {
     static Scanner sc = new Scanner(System.in);
     static LocalDate date = LocalDate.now();
     static LocalTime time = LocalTime.now();
-    static String[][] nasabah = new String[3][5];
+    static String[][] nasabah = new String[5][5];
     static String[][] riwayat = new String[10][4];
     static String[][] va = new String[3][3];
     static int counter = 0;
@@ -63,8 +63,8 @@ public class MesinATM_5 {
         nasabah[0][0] = "1234567890"; // Nomor Rekening
         nasabah[0][1] = "123456"; // PIN
         nasabah[0][2] = "20000000"; // Saldo
-        nasabah[0][3] = "Lavina";
-        nasabah[0][4] = "BTS";
+        nasabah[0][3] = "Lavina"; // Nama
+        nasabah[0][4] = "BTS"; // Nama Bank
 
         nasabah[1][0] = "0987654321";
         nasabah[1][1] = "098765";
@@ -77,6 +77,18 @@ public class MesinATM_5 {
         nasabah[2][2] = "10000000";
         nasabah[2][3] = "Galih";
         nasabah[2][4] = "BRI";
+
+        nasabah[3][0] = "1982736547";
+        nasabah[3][1] = "230804";
+        nasabah[3][2] = "10500000";
+        nasabah[3][3] = "Aden";
+        nasabah[3][4] = "BNI";
+
+        nasabah[4][0] = "8735629846";
+        nasabah[4][1] = "111213";
+        nasabah[4][2] = "20800000";
+        nasabah[4][3] = "Anais";
+        nasabah[4][4] = "BCA";
     }
 
     static void VA() {
@@ -425,8 +437,10 @@ public class MesinATM_5 {
     static void CetakResiSetoranLain(String namaTujuan, String rekTujuan, int jmlSetor) {
         do {
             System.out.println("\n====================================");
-            System.out.println("       SETOR TUNAI BERHASIL !");
+            System.out.println("               ATM BTS");
             System.out.println("====================================");
+            System.out.printf("\n" + date + " %tT%n", time);
+            System.out.println("Cabang JTI Polinema");
             System.out.println("\nSetor Tunai");
             System.out.println("No Rekening       : " + rekTujuan);
             System.out.println("Nama Penerima     : " + namaTujuan);
@@ -460,41 +474,43 @@ public class MesinATM_5 {
 
         int admin;
         String bankTujuan = null;
-        if (menu == 1) {
-            admin = 6_500;
-            bankTujuan = "BTS";
-            Transfer(admin, bankTujuan);
-        } else if (menu == 2) {
-            admin = 7_500;
-            System.out.println("\n||================================||");
-            System.out.println("||            Bank Tujuan         ||");
-            System.out.println("||________________________________||");
-            System.out.println("||          1. BRI                ||");
-            System.out.println("||          2. BNI                ||");
-            System.out.println("||          3. BCA                ||");
-            System.out.println("||          4. Kembali            ||");
-            System.out.println("||================================||");
-            System.out.print("Pilih Menu Bank               : ");
-            int menuBank = sc.nextInt();
-            sc.nextLine();
+        if (menu <= 4) {
+            if (menu == 1) {
+                admin = 6_500;
+                bankTujuan = "BTS";
+                Transfer(admin, bankTujuan);
+            } else if (menu == 2) {
+                admin = 7_500;
+                System.out.println("\n||================================||");
+                System.out.println("||            Bank Tujuan         ||");
+                System.out.println("||________________________________||");
+                System.out.println("||          1. BRI                ||");
+                System.out.println("||          2. BNI                ||");
+                System.out.println("||          3. BCA                ||");
+                System.out.println("||          4. Kembali            ||");
+                System.out.println("||================================||");
+                System.out.print("Pilih Menu Bank               : ");
+                int menuBank = sc.nextInt();
+                sc.nextLine();
 
-            if (menuBank == 1) {
-                bankTujuan = "BRI";
-            } else if (menuBank == 2) {
-                bankTujuan = "BNI";
-            } else if (menuBank == 3) {
-                bankTujuan = "BCA";
-            } else if (menuBank == 4) {
-                MenuUtama();
-            } else {
-                System.out.println("\n================================");
-                System.out.println("Menu Tidak Valid !");
-                System.out.println("================================");
+                if (menuBank == 1) {
+                    bankTujuan = "BRI";
+                } else if (menuBank == 2) {
+                    bankTujuan = "BNI";
+                } else if (menuBank == 3) {
+                    bankTujuan = "BCA";
+                } else if (menuBank == 4) {
+                    MenuUtama();
+                } else {
+                    System.out.println("\n================================");
+                    System.out.println("Menu Tidak Valid !");
+                    System.out.println("================================");
+                }
+
+                Transfer(admin, bankTujuan);
+            } else if (menu == 3) {
+                VirtualAkun();
             }
-
-            Transfer(admin, bankTujuan);
-        } else if (menu == 3) {
-            VirtualAkun();
         } else {
             System.out.println("\n================================");
             System.out.println("Menu Tidak Valid !");
@@ -729,21 +745,26 @@ public class MesinATM_5 {
 
     static void History() {
         do {
-            System.out.println("\n==========================================================================");
+            System.out.println(
+                    "\n=======================================================================================");
             System.out.println("|                              Mutasi Rekening                           |");
             System.out.printf("|\t\t\t\t%1$tB %1$tY                            |%n", date);
-            System.out.println("==========================================================================");
-            System.out.println("|     Tgl    |       Keterangan       |     Mutasi     |      Saldo      |");
-            System.out.println("==========================================================================");
+            System.out
+                    .println("=======================================================================================");
+            System.out
+                    .println("|     Tgl    |              Keterangan             |     Mutasi     |      Saldo      |");
+            System.out
+                    .println("=======================================================================================");
 
             for (int i = 0; i < riwayat.length; i++) {
                 if (riwayat[i] != null) {
                     if (riwayat[i][0] != null && riwayat[i][1] != null && riwayat[i][2] != null
                             && riwayat[i][3] != null) {
-                        System.out.printf("| %-10s | %-22s | %-14s | %-15s | %n", riwayat[i][0],
+                        System.out.printf("| %-10s | %-35s | %-14s | %-15s | %n", riwayat[i][0],
                                 riwayat[i][1], riwayat[i][2], riwayat[i][3]);
                         System.out
-                                .println("==========================================================================");
+                                .println(
+                                        "=======================================================================================");
                     }
                 } else {
                     break;
